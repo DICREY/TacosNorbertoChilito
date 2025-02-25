@@ -1,18 +1,21 @@
 import customtkinter as ctk
+import tkinter as tk
 
-colorbtn="#FFEEAB"
-colortext="#623307"
-colorbtnHover="#FFFBE9"
+# vars
+letter_type = ("Helvetica",16,"bold")
+color_white = "white"
+color_btn="#FFEEAB"
+color_text="#623307"
+color_btn_hover="#FFFBE9"
 
-class TiendaApp:
+class App:
     def __init__(self, root):
         self.root = root
         self.root.title("Sistema de Tienda")
-        self.root.geometry("1200x800")
+        self.root.geometry("1200x600")
 
         # Configuración de la apariencia
-        ctk.set_appearance_mode("dark")  # Puedes cambiar a "light" si prefieres
-        ctk.set_default_color_theme("green")  # Puedes cambiar el tema de color
+        ctk.set_appearance_mode("light")
 
         # Crear un frame para la barra de navegación lateral
         self.nav_frame = ctk.CTkFrame(root, width=200, corner_radius=0, fg_color="#F3CC6A")
@@ -23,25 +26,25 @@ class TiendaApp:
         self.main_content_frame.pack(side="right", fill="both", expand=True)
 
         # Botones de navegación en la barra lateral
-        self.boton_pedidos = ctk.CTkButton(self.nav_frame, text="Pedidos",fg_color=colorbtn, text_color=colortext, hover_color=colorbtnHover ,command=self.mostrar_pedidos,)
+        self.boton_pedidos = ctk.CTkButton(self.nav_frame, text="Pedidos",font=letter_type,fg_color=color_btn, text_color=color_text, hover_color=color_btn_hover ,command=self.mostrar_pedidos,)
         self.boton_pedidos.pack(pady=10, padx=10, fill="x")
 
-        self.boton_inventario = ctk.CTkButton(self.nav_frame, text="Inventario",fg_color=colorbtn, text_color=colortext, hover_color=colorbtnHover ,command=self.mostrar_inventario)
+        self.boton_inventario = ctk.CTkButton(self.nav_frame, text="Inventario",font=letter_type,fg_color=color_btn, text_color=color_text, hover_color=color_btn_hover ,command=self.mostrar_inventario)
         self.boton_inventario.pack(pady=10, padx=10, fill="x")
 
-        self.boton_clientes = ctk.CTkButton(self.nav_frame, text="Clientes",fg_color=colorbtn, text_color=colortext, hover_color=colorbtnHover ,command=self.mostrar_clientes)
+        self.boton_clientes = ctk.CTkButton(self.nav_frame, text="Clientes",font=letter_type,fg_color=color_btn, text_color=color_text, hover_color=color_btn_hover ,command=self.mostrar_clientes)
         self.boton_clientes.pack(pady=10, padx=10, fill="x")
 
-        self.boton_productos = ctk.CTkButton(self.nav_frame, text="Productos",fg_color=colorbtn, text_color=colortext, hover_color=colorbtnHover ,command=self.mostrar_productos)
+        self.boton_productos = ctk.CTkButton(self.nav_frame, text="Productos",font=letter_type,fg_color=color_btn, text_color=color_text, hover_color=color_btn_hover ,command=self.mostrar_productos)
         self.boton_productos.pack(pady=10, padx=10, fill="x")
 
-        self.boton_proveedores = ctk.CTkButton(self.nav_frame, text="Proveedores",fg_color=colorbtn, text_color=colortext, hover_color=colorbtnHover ,command=self.mostrar_proveedores)
+        self.boton_proveedores = ctk.CTkButton(self.nav_frame, font=letter_type,text="Proveedores",fg_color=color_btn, text_color=color_text, hover_color=color_btn_hover ,command=self.mostrar_proveedores)
         self.boton_proveedores.pack(pady=10, padx=10, fill="x")
 
-        self.boton_facturas = ctk.CTkButton(self.nav_frame, text="Facturas",fg_color=colorbtn, text_color=colortext, hover_color=colorbtnHover ,command=self.mostrar_facturas)
+        self.boton_facturas = ctk.CTkButton(self.nav_frame, text="Facturas",font=letter_type,fg_color=color_btn, text_color=color_text, hover_color=color_btn_hover ,command=self.mostrar_facturas)
         self.boton_facturas.pack(pady=10, padx=10, fill="x")
 
-        self.boton_control_pagos = ctk.CTkButton(self.nav_frame, text="Control Pagos",fg_color=colorbtn, text_color=colortext, hover_color=colorbtnHover ,command=self.mostrar_control_pagos)
+        self.boton_control_pagos = ctk.CTkButton(self.nav_frame, text="Control Pagos",font=letter_type,fg_color=color_btn, text_color=color_text, hover_color=color_btn_hover ,command=self.mostrar_control_pagos)
         self.boton_control_pagos.pack(pady=10, padx=10, fill="x")
 
         # Frame para mostrar el contenido de los pedidos
@@ -49,7 +52,7 @@ class TiendaApp:
         self.pedidos_frame.pack(fill="both", expand=True)
 
         # Ejemplo de lista de pedidos
-        self.lista_pedidos = ctk.CTkLabel(self.pedidos_frame, text="Lista de Pedidos", font=("Arial", 18))
+        self.lista_pedidos = ctk.CTkLabel(self.pedidos_frame, text="Lista de Pedidos", font=letter_type)
         self.lista_pedidos.pack(pady=20)
 
         # Inicialmente mostrar la sección de pedidos
@@ -61,32 +64,32 @@ class TiendaApp:
 
     def mostrar_inventario(self):
         self.limpiar_contenido()
-        label = ctk.CTkLabel(self.main_content_frame, text="Contenido de Inventario", font=("Arial", 18))
+        label = ctk.CTkLabel(self.main_content_frame, text="Contenido de Inventario", font=letter_type)
         label.pack(pady=20)
 
     def mostrar_clientes(self):
         self.limpiar_contenido()
-        label = ctk.CTkLabel(self.main_content_frame, text="Contenido de Clientes", font=("Arial", 18))
+        label = ctk.CTkLabel(self.main_content_frame, text="Contenido de Clientes", font=letter_type)
         label.pack(pady=20)
 
     def mostrar_productos(self):
         self.limpiar_contenido()
-        label = ctk.CTkLabel(self.main_content_frame, text="Contenido de Productos", font=("Arial", 18))
+        label = ctk.CTkLabel(self.main_content_frame, text="Contenido de Productos", font=letter_type)
         label.pack(pady=20)
 
     def mostrar_proveedores(self):
         self.limpiar_contenido()
-        label = ctk.CTkLabel(self.main_content_frame, text="Contenido de Proveedores", font=("Arial", 18))
+        label = ctk.CTkLabel(self.main_content_frame, text="Contenido de Proveedores", font=letter_type)
         label.pack(pady=20)
 
     def mostrar_facturas(self):
         self.limpiar_contenido()
-        label = ctk.CTkLabel(self.main_content_frame, text="Contenido de Facturas", font=("Arial", 18))
+        label = ctk.CTkLabel(self.main_content_frame, text="Contenido de Facturas", font=letter_type)
         label.pack(pady=20)
 
     def mostrar_control_pagos(self):
         self.limpiar_contenido()
-        label = ctk.CTkLabel(self.main_content_frame, text="Contenido de Control de Pagos", font=("Arial", 18))
+        label = ctk.CTkLabel(self.main_content_frame, text="Contenido de Control de Pagos", font=letter_type)
         label.pack(pady=20)
 
     def limpiar_contenido(self):
@@ -95,5 +98,5 @@ class TiendaApp:
 
 
 root = ctk.CTk()
-app = TiendaApp(root)
+app = App(root)
 root.mainloop()

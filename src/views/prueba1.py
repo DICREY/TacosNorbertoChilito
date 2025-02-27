@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from src.views.vars import *
+from vars import *
 from PIL import Image
 import os
 

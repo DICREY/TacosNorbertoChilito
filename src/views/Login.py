@@ -1,10 +1,10 @@
 import customtkinter as ctk
 from vars import *
 from PIL import Image
+from Home import App
 import os
 
 #Declaracion Ventana
-
 
 class Login(ctk.CTk):
     
@@ -100,7 +100,10 @@ class Login(ctk.CTk):
         psInp = self.pswInput.get()
         
         if (user==usInp and psw == psInp):
-            print("pe")
+            login.destroy()
+            root = ctk.CTk()
+            app = App(root)
+            root.mainloop()
         else:
             print("datos incorrectos")
 

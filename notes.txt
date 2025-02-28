@@ -1,0 +1,8 @@
+tabla para articulos por unidad para dar opcion de registro de cada uno
+
+articulo {
+    "nombre": "",
+    "categoria": "",
+    "materiales": "",
+    "descripcion": "",
+}

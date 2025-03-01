@@ -10,14 +10,16 @@ BEGIN
         p.doc_per,
         p.ema_per,
         p.dir_per,
-        p.pais_per,
-        p.ciud_per,
+        pa.nom_pai,
+        ci.nom_ciu,
         c.depart_cli,
         c.ano_cli
-    FROM PERSONAS p, CLIENTES c
+    FROM PERSONAS p, CLIENTES c,PAISES pa, CIUDADES ci
     WHERE
+        p.pais_per = pa.id_pai AND
+        p.ciud_per = ci.id_ciu AND
         p.id_per = c.id_cli AND
         p.estado = 1 AND
-        nombre LIKE CONCAT("%",p_name,"%");
+        p.nom_per LIKE CONCAT("%",p_name,"%");
 END //
     

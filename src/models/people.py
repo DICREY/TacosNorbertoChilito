@@ -1,10 +1,6 @@
 # Imports
 from models.database import DataBase
 
-# librarys
-import bcrypt
-import re
-
 class People:
     # Method Constructor
     @classmethod

@@ -1,5 +1,5 @@
 DELIMITER //
-CREATE PROCEDURE SearchOneEmployee(
+CREATE PROCEDURE SearchOneDistributor(
     -- Procedure Vars
     IN p_var_search VARCHAR(100)
 )
@@ -13,25 +13,23 @@ BEGIN
         p.dir_per,
         pa.nom_pai,
         c.nom_ciu,
-        e.arl_emp,
-        e.eps_emp,
-        e.sal_emp
-    FROM PERSONAS p, EMPLEADOS e, CIUDADES c, PAISES pa
+        d.emp_per_dis
+    FROM PERSONAS p, DISTRIBUIDORES d, CIUDADES c, PAISES pa
     WHERE
         -- Enlazar varias tablas y buscar por nombre o documento
-        p.id_per = e.id_emp AND 
+        p.id_per = d.id_dis AND 
         p.ciud_per = c.id_ciu AND 
         p.pais_per = pa.id_pai AND 
         p.estado = 1 AND
         p.nom_per LIKE CONCAT("%",p_var_search,"%") OR
-        p.id_per = e.id_emp AND 
+        p.id_per = d.id_dis AND 
         p.ciud_per = c.id_ciu AND 
         p.pais_per = pa.id_pai AND 
         p.estado = 1 AND
         p.doc_per LIKE CONCAT("%",p_var_search,"%");
 END //
 
-CREATE PROCEDURE SearchEmployees()
+CREATE PROCEDURE SearchDistributor()
 BEGIN 
     SELECT
         p.nom_per,
@@ -42,18 +40,16 @@ BEGIN
         p.dir_per,
         pa.nom_pai,
         c.nom_ciu,
-        e.arl_emp,
-        e.eps_emp,
-        e.sal_emp
-    FROM PERSONAS p, EMPLEADOS e, CIUDADES c, PAISES pa
+        d.emp_per_dis
+    FROM PERSONAS p, DISTRIBUIDORES d, CIUDADES c, PAISES pa
     WHERE 
         -- Enlazar varias tablas
-        p.id_per = e.id_emp AND
+        p.id_per = d.id_dis AND
         p.ciud_per = c.id_ciu AND
         p.estado = 1 AND
         p.pais_per = pa.id_pai;
 END //
-CREATE PROCEDURE DesactiveEmployee(
+CREATE PROCEDURE DesactiveDistributor(
     -- Procedure Vars
     IN p_var_search VARCHAR(100)
 )
@@ -70,12 +66,12 @@ BEGIN
     START TRANSACTION;
     
     -- Update PERSONAS for desactive it
-    UPDATE PERSONAS p,EMPLEADOS e
+    UPDATE PERSONAS p,DISTRIBUIDORES d
     SET p.estado = 0
     WHERE
-        p.id_per = e.id_emp AND
+        p.id_per = d.id_dis AND
         p.ema_per LIKE p_var_search OR 
-        p.id_per = e.id_emp AND
+        p.id_per = d.id_dis AND
         p.doc_per LIKE p_var_search;
 
     COMMIT;
@@ -83,7 +79,7 @@ BEGIN
     SET autocommit = 1;
 END //
 
-CREATE PROCEDURE RegistEmployee(
+CREATE PROCEDURE RegistDistributor(
     -- Procedure Vars
     IN name VARCHAR(100),
     IN lastname VARCHAR(100),
@@ -93,9 +89,7 @@ CREATE PROCEDURE RegistEmployee(
     IN address VARCHAR(100),
     IN country VARCHAR(100),
     IN city VARCHAR(100),
-    IN sal VARCHAR(100),
-    IN arl VARCHAR(100),
-    IN eps VARCHAR(100)
+    IN emp VARCHAR(100)
 )
 BEGIN
     -- Vars
@@ -141,15 +135,14 @@ BEGIN
     -- Seleccionar el id de la inserccion mas reciente y darselo como valor a la variable
     SET id_per = LAST_INSERT_ID();
 
-    INSERT INTO EMPLEADOS VALUES(id_per,sal,arl,eps);
+    INSERT INTO DISTRIBUIDORES VALUES(id_per,emp);
 
     COMMIT;
 
     SET autocommit = 1;
 END //
 
-CALL SearchOneEmployee("456789123");
-CALL RegistEmployee(
+CALL RegistDistributor(
     'CRISTIAN',
     'Pérez',
     '3001234567',
@@ -158,11 +151,8 @@ CALL RegistEmployee(
     'Calle 123',
     'Colombia',
     'Bogotá',
-    'Compensar',
-    20000.00,
-    5000000.00
+    'C.A. S.A.S'
 );
-
-CALL SearchEmployees();
-
-CALL DesactiveEmployee("777777777");
+CALL SearchOneDistributor("123456789");
+CALL DesactiveDistributor("123456789");
+CALL SearchDistributor();

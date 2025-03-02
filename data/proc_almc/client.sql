@@ -146,13 +146,13 @@ BEGIN
     START TRANSACTION;
 
     -- Update PERSONAS for desactive it
-    UPDATE PERSONAS p,CLIENTE c
+    UPDATE PERSONAS p,CLIENTES c
     SET p.estado = 0
     WHERE
         p.id_per = c.id_cli AND
-        p.ema_per LIKE CONCAT("%,name,%") OR
+        p.ema_per LIKE name OR
         p.id_per = c.id_cli AND
-        p.doc_per LIKE CONCAT("%,name,%");
+        p.doc_per LIKE name;
 
     COMMIT;
 

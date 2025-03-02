@@ -36,10 +36,14 @@ class Client(People):
     def get__data(cls):
         return cls.__data
     
+    # def catch_data(cls):
+        # cls.__name = ;
+    
     @classmethod
     def registrar_client(cls):
         conexion = DataBase.conectar()
-        if conexion:
+        cliente = cls.buscar_client_name()
+        if not cliente:
             try:
                 cursor_client = conexion.cursor()
                 cursor_client.callproc('RegistClient', [
@@ -56,50 +60,55 @@ class Client(People):
 
                 ])
             except Exception as e:
-                print(f'Error al buscar client: {e}')
+                return f'Error al buscar client: {e}'
+            finally:
+                if conexion:
+                    cursor_client.close()
+                    DataBase.desconectar()
+        else:
+            return 'Ya existe'
+    @classmethod
+    def buscar_client_name(cls, name=None):
+        conexion = DataBase.conectar()
+        cliente = cls.buscar_client_name(name)
+        if not cliente:
+            try:
+                cursor_client = conexion.cursor()
+                cursor_client.callproc('SearchClientName', [name])
+                for busqueda in cursor_client.stored_results():
+                    resultado = busqueda.fetchone()
+                    if resultado:
+                        cls.__data = resultado
+                        print(cls.__data)
+                        return 'Cliente encontrado'
+                    else:
+                        return 'Cliente not encontrado'
+            except Exception as e:
+                return e
             finally:
                 if conexion:
                     cursor_client.close()
                     DataBase.desconectar()
         
     @classmethod
-    def buscar_client_name(cls, name=None):
-        conexion = DataBase.conectar()
-        if conexion:
-            try:
-                mostrar_usuario = False
-                cursor_client = conexion.cursor()
-                cursor_client.callproc('SearchClientName', [name])
-                for busqueda in cursor_client.stored_results():
-                    resultado = busqueda.fetchone()
-                    if resultado:
-                        mostrar_usuario = True
-                        cls.__data = resultado
-                        print(cls.__data)
-                        return mostrar_usuario
-                    else:
-                        return mostrar_usuario
-            except Exception as e:
-                print(f'Error al buscar client: {e}')
-            finally:
-                if conexion:
-                    cursor_client.close()
-                    DataBase.desconectar()
-    @classmethod
     def eliminar_client(cls, name = None):
         conexion = DataBase.conectar()
-        mostrar_usuario = cls.buscar_client_name(name)
-        if mostrar_usuario:
+        cliente = cls.buscar_client_name(name)
+        if cliente:
             try:
                 cursor_client = conexion.cursor()
                 cursor_client.callproc('DesactivarClient', [name])
                 conexion.commit()
                 cursor_client.close()
-                print('client eliminado')
+                return 'client eliminado'
             except Exception as error:
-                print(f'Error al eliminar el client: {error}. Intente de nuevo')
+                return f'Error al eliminar el client: {error}. Intente de nuevo'
             finally:
-                DataBase.desconectar()   
+                DataBase.desconectar()
+
 
 cl = Client()
-cl.buscar_client_name("Juan")
+search = cl.buscar_client_name("cristi")
+print(search)
+# delete = cl.eliminar_client("123456789")
+# print(delete)

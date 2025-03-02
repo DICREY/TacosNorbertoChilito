@@ -1,5 +1,5 @@
 # Imports
-from models.database import DataBase
+from database import DataBase
 
 class People:
     # Method Constructor

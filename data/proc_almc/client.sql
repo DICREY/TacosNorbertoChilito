@@ -1,6 +1,7 @@
 -- Active: 1725413700917@@127.0.0.1@3306@tacos_norberto_chilito
 DELIMITER //
-CREATE PROCEDURE SearchClientName(
+CREATE PROCEDURE SearchOneClient(
+    -- Procedure Vars
     IN p_name VARCHAR(100)
 )
 BEGIN
@@ -18,6 +19,7 @@ BEGIN
         c.ano_cli
     FROM PERSONAS p, CLIENTES c,PAISES pa, CIUDADES ci
     WHERE
+        -- Enlazar varias tablas y buscar por nombre, documento o anotacion
         p.pais_per = pa.id_pai AND
         p.ciud_per = ci.id_ciu AND
         p.id_per = c.id_cli AND
@@ -51,6 +53,7 @@ BEGIN
         c.depart_cli
     FROM PERSONAS p,CLIENTES c,PAISES pa, CIUDADES ci
     WHERE 
+        -- Enlace para buscar solo los clientes
         p.id_per = c.id_cli AND
         p.ciud_per = ci.id_ciu AND
         p.estado = 1 AND
@@ -58,6 +61,7 @@ BEGIN
 END //
 
 CREATE PROCEDURE RegistClient(
+    -- Procedure Vars
     IN name VARCHAR(100),
     IN lastname VARCHAR(100),
     IN cel VARCHAR(20),
@@ -86,10 +90,10 @@ BEGIN
 
     START TRANSACTION;
 
-    -- Insert PAIS
+    -- Insert PAIS if not exist
     INSERT INTO PAISES(nom_pai)
     SELECT country
-    FROM DUAL 
+    FROM DUAL -- Dual es una tabla vacia para tener datos en la ram
     WHERE NOT EXISTS (
         SELECT 1 FROM PAISES WHERE nom_pai = country
     );
@@ -97,7 +101,7 @@ BEGIN
     -- GET ID PAIS
     SELECT id_pai INTO p_id_country FROM PAISES WHERE nom_pai = country;
 
-    -- Insert ciudad if exist
+    -- Insert ciudad if not exist
     INSERT INTO CIUDADES(nom_ciu)
     SELECT city
     FROM DUAL
@@ -126,28 +130,31 @@ BEGIN
 END //
 
 CREATE PROCEDURE DesactivarClient(
+    -- Procedure Vars
     IN name VARCHAR(100)
 )
-BEGIN 
+BEGIN
+    -- Manejador de excepciones
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+
+    SET autocommit = 0;
+
+    START TRANSACTION;
+
+    -- Update PERSONAS for desactive it
     UPDATE PERSONAS p,CLIENTE c
     SET p.estado = 0
     WHERE
         p.id_per = c.id_cli AND
-        p.nom_per LIKE CONCAT("%,name,%");
+        p.ema_per LIKE CONCAT("%,name,%") OR
+        p.id_per = c.id_cli AND
+        p.doc_per LIKE CONCAT("%,name,%");
+
+    COMMIT;
+
+    SET autocommit = 1;
 END //
-
-CALL SearchClientName("123456789");
-CALL RegistClient(
-    'CRISTIAN',
-    'Pérez',
-    '3001234567',
-    '123456789',
-    'cristian@example.com',
-    'Calle 123',
-    'Colombia',
-    'Bogotá',
-    '2023',
-    'Cundinamarca' 
-);
-
-CALL SearchClients();

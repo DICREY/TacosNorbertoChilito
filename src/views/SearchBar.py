@@ -28,11 +28,11 @@ class SearchBar (ctk.CTkFrame):
         self.btnSearch.pack(side="left", fill="x", pady=5, padx=10)
         
 
-        self.btnSearch = ctk.CTkButton(self,
+        self.btnRegister = ctk.CTkButton(self,
                             text="+Registrar",
                             height=30,
                             font=letter,
                             fg_color=btnCafe,
                             hover_color=btnHoover)
-        self.btnSearch.pack(side="right", fill="x", pady=5, padx=10)
+        self.btnRegister.pack(side="right", fill="x", pady=5, padx=10)
         

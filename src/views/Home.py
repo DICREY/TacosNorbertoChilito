@@ -3,6 +3,7 @@ import tkinter as tk
 from src.views.vars import *
 from src.views.Persona import Persona
 from src.views.SearchBar import SearchBar
+from src.views.RegisterPersona import RegisterPersona
 from PIL import Image
 
 
@@ -36,12 +37,12 @@ class App:
         self.mostrar_persona()
 
     
+    # Botones de navegación en la barra lateral
     def crear_btns(self):
         
         self.boton_user = ctk.CTkButton(self.nav_frame, height=50, corner_radius=50 ,font=letter_type,fg_color=color_btn, text_color=color_text, hover_color=color_btn_hover ,command=self.mostrar_pedidos,)
         self.boton_user.pack(pady=20, padx=10, fill="x")
         
-        # Botones de navegación en la barra lateral
         self.boton_pedidos = ctk.CTkButton(self.nav_frame, text="Pedidos",font=letter_type,fg_color=color_btn, text_color=color_text, hover_color=color_btn_hover ,command=self.mostrar_pedidos,)
         self.boton_pedidos.pack(pady=10, padx=10, fill="x")
 
@@ -109,18 +110,32 @@ class App:
         
         self.searchBar = SearchBar(master=self.content_box, text="Persona")
         self.searchBar.configure(height=50, fg_color=blanco)
+        self.searchBar.btnRegister.configure(command=self.register_persona)
         self.searchBar.pack(side="top",padx=20,pady=10,fill="x")
         
         self.dataFrame = Persona(master=self.content_box)
-        self.dataFrame.configure(height=500,width=700, fg_color=blanco)
+        self.dataFrame.configure(fg_color=blanco)
         self.dataFrame.pack(side="top", padx=20, pady=10, fill="both", expand=True)
+        for i in range (1,12):
+            self.frameN = ctk.CTkFrame(self.dataFrame.datosFrame,height=30,fg_color=fondAma)
+            self.frameN.pack(side="top", fill="x", pady=10)
         
-
+        
+    def register_persona(self):
+        
+        self.limpiar_contenido()
+        
+        self.change_title("Registro Persona")    
+         
+        self.registerPersona = RegisterPersona(master=self.content_box, texto= "Persona")
+        self.registerPersona.pack(side="top",padx=10,pady=10, fill="both", expand=True)   
+        
     def mostrar_pedidos(self):
+        
+        self.limpiar_contenido()
         
         self.change_title("Pedidos")
         
-        self.limpiar_contenido()
 
 
     def mostrar_inventario(self):

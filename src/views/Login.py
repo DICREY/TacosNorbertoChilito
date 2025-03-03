@@ -19,7 +19,12 @@ class Login(ctk.CTk):
         self.title("Hola pe causa")
         centrar_ventana(self, 800, 500)
         self.resizable(width=False,height =False)
-        
+        self.protocol("WM_DELETE_WINDOW", self.on_close)
+    
+    
+    def on_close(self):
+        # Cancelar la tarea programada antes de cerrar
+        self.root.destroy()
     
     def frameLogo(self):
         #frame de la izquierda, funciona como una caja HTML y abajo su contenido

@@ -1,5 +1,10 @@
 import customtkinter as ctk
 import tkinter as tk
+from src.views.vars import *
+from src.views.Persona import Persona
+from src.views.SearchBar import SearchBar
+from PIL import Image
+
 
 # vars
 letter_type = ("Helvetica",16,"bold")
@@ -24,7 +29,18 @@ class App:
         # Crear un frame para el contenido principal
         self.main_content_frame = ctk.CTkFrame(root, corner_radius=0)
         self.main_content_frame.pack(side="right", fill="both", expand=True)
+        
+        self.up_bar()
+        self.content_box()
+        self.crear_btns()
+        self.mostrar_persona()
 
+    
+    def crear_btns(self):
+        
+        self.boton_user = ctk.CTkButton(self.nav_frame, height=50, corner_radius=50 ,font=letter_type,fg_color=color_btn, text_color=color_text, hover_color=color_btn_hover ,command=self.mostrar_pedidos,)
+        self.boton_user.pack(pady=20, padx=10, fill="x")
+        
         # Botones de navegación en la barra lateral
         self.boton_pedidos = ctk.CTkButton(self.nav_frame, text="Pedidos",font=letter_type,fg_color=color_btn, text_color=color_text, hover_color=color_btn_hover ,command=self.mostrar_pedidos,)
         self.boton_pedidos.pack(pady=10, padx=10, fill="x")
@@ -38,63 +54,144 @@ class App:
         self.boton_productos = ctk.CTkButton(self.nav_frame, text="Productos",font=letter_type,fg_color=color_btn, text_color=color_text, hover_color=color_btn_hover ,command=self.mostrar_productos)
         self.boton_productos.pack(pady=10, padx=10, fill="x")
 
+        self.boton_empleados = ctk.CTkButton(self.nav_frame, font=letter_type,text="Empleados",fg_color=color_btn, text_color=color_text, hover_color=color_btn_hover ,command=self.mostrar_empleados)
+        self.boton_empleados.pack(pady=10, padx=10, fill="x")
+        
         self.boton_proveedores = ctk.CTkButton(self.nav_frame, font=letter_type,text="Proveedores",fg_color=color_btn, text_color=color_text, hover_color=color_btn_hover ,command=self.mostrar_proveedores)
         self.boton_proveedores.pack(pady=10, padx=10, fill="x")
 
         self.boton_facturas = ctk.CTkButton(self.nav_frame, text="Facturas",font=letter_type,fg_color=color_btn, text_color=color_text, hover_color=color_btn_hover ,command=self.mostrar_facturas)
         self.boton_facturas.pack(pady=10, padx=10, fill="x")
 
+        self.boton_nominas = ctk.CTkButton(self.nav_frame, text="Nominas",font=letter_type, fg_color=color_btn, text_color=color_text, hover_color=color_btn_hover ,command=self.mostrar_facturas)
+        self.boton_nominas.pack(pady=10, padx=10, fill="x")
+
         self.boton_control_pagos = ctk.CTkButton(self.nav_frame, text="Control Pagos",font=letter_type,fg_color=color_btn, text_color=color_text, hover_color=color_btn_hover ,command=self.mostrar_control_pagos)
         self.boton_control_pagos.pack(pady=10, padx=10, fill="x")
+        
+    
+    def up_bar(self):
+        self.up_bar = ctk.CTkFrame(master=self.main_content_frame)
+        self.up_bar.configure(
+            height=80,
+            fg_color=blanco,
+            corner_radius=0
+        )
+        self.up_bar.pack(side="top", fill="x")
+        
+        self.logo = ctk.CTkImage(light_image=Image.open("assets/logo.png"),size=(170,80))
 
-        # Frame para mostrar el contenido de los pedidos
-        self.pedidos_frame = ctk.CTkFrame(self.main_content_frame, corner_radius=0)
-        self.pedidos_frame.pack(fill="both", expand=True)
+        self.logoIn=ctk.CTkLabel(self.up_bar, text="", image=self.logo, width=170, height=80)
+        self.logoIn.pack(side="right", padx=10,pady=10)
+        
+        self.pageTitle= ctk.CTkLabel(self.up_bar,
+                                     text="Home",
+                                     text_color=btnCafe,
+                                     font=title_letter)
+        self.pageTitle.pack(side="left",padx=20)    
+        
+    def change_title(self,textIn):
+        self.pageTitle.configure(text=textIn)
+    
+        
+    def content_box(self):
+        self.content_box = ctk.CTkFrame(master=self.main_content_frame)
+        self.content_box.configure(
+            fg_color=fondoGr,
+            corner_radius=0
+        )
+        self.content_box.pack(side="top", fill="both", expand= True)
 
-        # Ejemplo de lista de pedidos
-        self.lista_pedidos = ctk.CTkLabel(self.pedidos_frame, text="Lista de Pedidos", font=letter_type)
-        self.lista_pedidos.pack(pady=20)
-
-        # Inicialmente mostrar la sección de pedidos
-        self.mostrar_pedidos()
+        
+    def mostrar_persona(self):
+        
+        self.change_title("Personas")
+        
+        self.searchBar = SearchBar(master=self.content_box, text="Persona")
+        self.searchBar.configure(height=50, fg_color=blanco)
+        self.searchBar.pack(side="top",padx=20,pady=10,fill="x")
+        
+        self.dataFrame = Persona(master=self.content_box)
+        self.dataFrame.configure(height=500,width=700, fg_color=blanco)
+        self.dataFrame.pack(side="top", padx=20, pady=10, fill="both", expand=True)
+        
 
     def mostrar_pedidos(self):
+        
+        self.change_title("Pedidos")
+        
         self.limpiar_contenido()
-        self.lista_pedidos.pack(pady=20)
+
 
     def mostrar_inventario(self):
+        
+        self.change_title("Inventario")
+        
         self.limpiar_contenido()
-        label = ctk.CTkLabel(self.main_content_frame, text="Contenido de Inventario", font=letter_type)
-        label.pack(pady=20)
+
 
     def mostrar_clientes(self):
         self.limpiar_contenido()
-        label = ctk.CTkLabel(self.main_content_frame, text="Contenido de Clientes", font=letter_type)
-        label.pack(pady=20)
+        
+        self.change_title("Clientes")
+        
+        self.searchBar = SearchBar(master=self.content_box, text="Persona")
+        self.searchBar.configure(height=50, fg_color=blanco)
+        self.searchBar.pack(side="top",padx=20,pady=10,fill="x")
+        
+        self.dataFrame = Persona(master=self.content_box)
+        self.dataFrame.configure(height=500,width=700, fg_color=blanco)
+        self.dataFrame.pack(side="top", padx=20, pady=10, fill="both", expand=True)
+        
+    def mostrar_empleados(self):
+        self.limpiar_contenido()
+        
+        self.change_title("Empleados")
+        
+        self.searchBar = SearchBar(master=self.content_box, text="Persona")
+        self.searchBar.configure(height=50, fg_color=blanco)
+        self.searchBar.pack(side="top",padx=20,pady=10,fill="x")
+        
+        self.dataFrame = Persona(master=self.content_box)
+        self.dataFrame.configure(height=500,width=700, fg_color=blanco)
+        self.dataFrame.pack(side="top", padx=20, pady=10, fill="both", expand=True)
 
     def mostrar_productos(self):
+        
+        self.change_title("Productos")
+        
         self.limpiar_contenido()
-        label = ctk.CTkLabel(self.main_content_frame, text="Contenido de Productos", font=letter_type)
-        label.pack(pady=20)
+
 
     def mostrar_proveedores(self):
         self.limpiar_contenido()
-        label = ctk.CTkLabel(self.main_content_frame, text="Contenido de Proveedores", font=letter_type)
-        label.pack(pady=20)
+        self.change_title("Proveedores")
+        
+        self.searchBar = SearchBar(master=self.content_box, text="Persona")
+        self.searchBar.configure(height=50, fg_color=blanco)
+        self.searchBar.pack(side="top",padx=20,pady=10,fill="x")
+        
+        self.dataFrame = Persona(master=self.content_box)
+        self.dataFrame.configure(height=500,width=700, fg_color=blanco)
+        self.dataFrame.pack(side="top", padx=20, pady=10, fill="both", expand=True)
 
     def mostrar_facturas(self):
+        
+        self.change_title("Facturas")
+        
         self.limpiar_contenido()
-        label = ctk.CTkLabel(self.main_content_frame, text="Contenido de Facturas", font=letter_type)
-        label.pack(pady=20)
+
 
     def mostrar_control_pagos(self):
+        
+        self.change_title("Control de Pagos")
+        
         self.limpiar_contenido()
-        label = ctk.CTkLabel(self.main_content_frame, text="Contenido de Control de Pagos", font=letter_type)
-        label.pack(pady=20)
+
 
     def limpiar_contenido(self):
-        for widget in self.main_content_frame.winfo_children():
-            widget.pack_forget()
+        for widget in self.content_box.winfo_children():
+            widget.destroy()
 
 
 # root = ctk.CTk()

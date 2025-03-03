@@ -1,8 +1,8 @@
 import customtkinter as ctk
-from vars import *
+from src.views.vars import *
 from PIL import Image
-from Home import App
-from func.util import *
+from src.views.Home import App
+from src.views.func.util import *
 import os
 
 class Login(ctk.CTk):

@@ -127,8 +127,8 @@ class App:
         
         self.change_title("Registro Persona")    
          
-        self.registerPersona = RegisterPersona(master=self.content_box, texto= "Persona")
-        self.registerPersona.pack(side="top",padx=10,pady=10, fill="both", expand=True)   
+        self.registerPersona = RegisterPersona(master=self.content_box, texto="Persona")
+        self.registerPersona.place(relx=0.5, rely=0.5, anchor="center", relwidth=0.8, relheight=0.8)  
         
     def mostrar_pedidos(self):
         

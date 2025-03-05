@@ -142,7 +142,7 @@ BEGIN
     SET autocommit = 1;
 END //
 
-CALL RegistDistributor(
+/* CALL RegistDistributor(
     'CRISTIAN',
     'Pérez',
     '3001234567',
@@ -155,4 +155,4 @@ CALL RegistDistributor(
 );
 CALL SearchOneDistributor("123456789");
 CALL DesactiveDistributor("123456789");
-CALL SearchDistributor();
+CALL SearchDistributor(); */

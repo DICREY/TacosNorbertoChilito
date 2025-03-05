@@ -33,6 +33,7 @@ class Client(People):
     def get__departamento(cls):
         return cls.__departamento
     
+    @classmethod
     def get__data(cls):
         return cls.__data
     
@@ -67,6 +68,7 @@ class Client(People):
                     DataBase.desconectar()
         else:
             return 'Ya existe'
+        
     @classmethod
     def buscar_client_name(cls, name=None):
         conexion = DataBase.conectar()
@@ -106,9 +108,46 @@ class Client(People):
             finally:
                 DataBase.desconectar()
 
+    @classmethod
+    def buscar_clientes(cls):
+        conexion = DataBase.conectar()
+        if conexion:
+            try:
+                cursor_client = conexion.cursor()
+                cursor_client.callproc('SearchClients')
+                for i in cursor_client.stored_results():
+                    res = i.fetchall()
+                if res:
+                    cls.__data = res
+                    return cls.__data
+                else:
+                    return "No hay clientes registrados"
+                
+                return
+            except Exception as error:
+                return f'Error al buscar los distributores: {error}. Intente de nuevo'
+            finally:
+                if conexion:
+                    cursor_client.close()
+                    DataBase.desconectar()
+
 
 cl = Client()
-search = cl.buscar_client_name("cristi")
-print(search)
+# search = cl.buscar_client_name("cristi")
+# print(search)
 # delete = cl.eliminar_client("123456789")
 # print(delete)
+# regis = cl.registrar_client(
+#     'CRISTIAN',
+#     'Pérez',
+#     '3001234567',
+#     '123456789',
+#     'cristian@example.com',
+#     'Calle 123',
+#     'Colombia',
+#     'Bogotá',
+#     'C.A. S.A.S'
+# )
+# print(regis)
+all = cl.buscar_clientes()
+print(all)

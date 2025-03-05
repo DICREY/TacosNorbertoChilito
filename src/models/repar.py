@@ -1,8 +1,6 @@
 # Imports
-from models.database import DataBase
-from models.people import People 
-
-# Librarys
+from database import DataBase
+from people import People 
 
 class Distributor(People):
     # Method Constructor
@@ -20,6 +18,7 @@ class Distributor(People):
     def get__corp(cls):
         return cls.__corp
     
+    @classmethod
     def get__data(cls):
         return cls.__data
     
@@ -52,22 +51,22 @@ class Distributor(People):
                     DataBase.desconectar()
         else:
             return 'Ya existe'
+        
     @classmethod
     def buscar_distributor_name(cls, name=None):
         conexion = DataBase.conectar()
-        distributor = cls.buscar_distributor_name(name)
-        if not distributor:
+        # distributor = cls.buscar_distributor_name(name)
+        if conexion:
             try:
                 cursor_distributor = conexion.cursor()
-                cursor_distributor.callproc('SearchDistributorName', [name])
+                cursor_distributor.callproc('SearchOneDistributor', [name])
                 for busqueda in cursor_distributor.stored_results():
                     resultado = busqueda.fetchone()
-                    if resultado:
-                        cls.__data = resultado
-                        print(cls.__data)
-                        return 'distributor encontrado'
-                    else:
-                        return 'distributor not encontrado'
+                if resultado:
+                    cls.__data = resultado
+                    return cls.__data
+                else:
+                    return 'distributor no encontrado'
             except Exception as e:
                 return e
             finally:
@@ -89,11 +88,35 @@ class Distributor(People):
             except Exception as error:
                 return f'Error al eliminar el distributor: {error}. Intente de nuevo'
             finally:
-                DataBase.desconectar()
+                if conexion:
+                    DataBase.desconectar()
+
+    @classmethod
+    def buscar_distribuidores(cls):
+        conexion = DataBase.conectar()
+        if conexion:
+            try:
+                cursor_dist = conexion.cursor()
+                cursor_dist.callproc('SearchDistributor')
+                for i in cursor_dist.stored_results():
+                    res = i.fetchall()
+                if res:
+                    cls.__data = res
+                    return cls.__data
+                else:
+                    return "No hay distribuidores registrados"
+                
+                return
+            except Exception as error:
+                return f'Error al buscar los distributores: {error}. Intente de nuevo'
+            finally:
+                if conexion:
+                    cursor_dist.close()
+                    DataBase.desconectar()
 
 
 cl = Distributor()
-search = cl.buscar_distributor_name("cristi")
+search = cl.buscar_distributor_name("123456789")
 print(search)
 # delete = cl.eliminar_distributor("123456789")
 # print(delete)
@@ -109,3 +132,5 @@ print(search)
 #     'C.A. S.A.S'
 # )
 # print(regis)
+# all = cl.buscar_distribuidores()
+# print(all)

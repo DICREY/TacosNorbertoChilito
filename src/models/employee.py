@@ -1,6 +1,6 @@
 # Imports
-from models.database import DataBase
-from models.people import People 
+from database import DataBase
+from people import People 
 
 # Librarys
 
@@ -33,6 +33,7 @@ class Employee(People):
     def get__eps(cls):
         return cls.__eps
     
+    @classmethod
     def get__data(cls):
         return cls.__data
     
@@ -67,6 +68,7 @@ class Employee(People):
                     DataBase.desconectar()
         else:
             return 'Ya existe'
+        
     @classmethod
     def buscar_employee_name(cls, name=None):
         conexion = DataBase.conectar()
@@ -106,9 +108,46 @@ class Employee(People):
             finally:
                 DataBase.desconectar()
 
+    @classmethod
+    def buscar_employees(cls):
+        conexion = DataBase.conectar()
+        if conexion:
+            try:
+                cursor_employee = conexion.cursor()
+                cursor_employee.callproc('SearchEmployees')
+                for i in cursor_employee.stored_results():
+                    res = i.fetchall()
+                if res:
+                    cls.__data = res
+                    return cls.__data
+                else:
+                    return "No hay employee registrados"
+                
+                return
+            except Exception as error:
+                return f'Error al buscar los employee: {error}. Intente de nuevo'
+            finally:
+                if conexion:
+                    cursor_employee.close()
+                    DataBase.desconectar()
+
 
 cl = Employee()
-search = cl.buscar_employee_name("cristi")
-print(search)
+# search = cl.buscar_employee_name("cristi")
+# print(search)
 # delete = cl.eliminar_employee("123456789")
 # print(delete)
+# regis = cl.registrar_employee(
+#     'CRISTIAN',
+#     'Pérez',
+#     '3001234567',
+#     '123456789',
+#     'cristian@example.com',
+#     'Calle 123',
+#     'Colombia',
+#     'Bogotá',
+#     'C.A. S.A.S'
+# )
+# print(regis)
+all = cl.buscar_employees()
+print(all)

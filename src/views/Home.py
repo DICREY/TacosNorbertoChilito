@@ -3,7 +3,8 @@ import tkinter as tk
 from src.views.vars import *
 from src.views.Persona import Persona
 from src.views.SearchBar import SearchBar
-from src.views.RegisterPersona import RegisterPersona
+from src.views.RegisterPersona import *
+from src.views.Pedidos import *
 from PIL import Image
 
 
@@ -91,6 +92,7 @@ class App:
                                      font=title_letter)
         self.pageTitle.pack(side="left",padx=20)    
         
+        
     def change_title(self,textIn):
         self.pageTitle.configure(text=textIn)
     
@@ -105,6 +107,8 @@ class App:
 
         
     def mostrar_persona(self):
+        
+        self.limpiar_contenido()
         
         self.change_title("Personas")
         
@@ -128,13 +132,32 @@ class App:
         self.change_title("Registro Persona")    
          
         self.registerPersona = RegisterPersona(master=self.content_box, texto="Persona")
-        self.registerPersona.place(relx=0.5, rely=0.5, anchor="center", relwidth=0.8, relheight=0.8)  
+        self.registerPersona.place(relx=0.5, rely=0.5, anchor="center", relwidth=0.8, relheight=0.8)
+        self.registerPersona.btnAtras.configure(command=self.mostrar_persona)
+    
+    
+    def register_cliente(self):
+        self.limpiar_contenido()
+        
+        self.change_title("Registro Cliente")    
+         
+        self.registerPersona = RegisterCliente(master=self.content_box, texto="Cliente")
+        self.registerPersona.place(relx=0.5, rely=0.5, anchor="center", relwidth=0.8, relheight=0.8)
+        self.registerPersona.btnAtras.configure(command=self.mostrar_clientes)
+        
         
     def mostrar_pedidos(self):
         
         self.limpiar_contenido()
         
         self.change_title("Pedidos")
+        
+        self.searchBar = PedidosSearchBar(master=self.content_box,texto="Pedidos")
+        self.searchBar.configure(height=50, fg_color=blanco)
+        self.searchBar.pack(side="top",padx=20,pady=5, fill="x")
+        
+        self.dataFrame = Pedidos(master=self.content_box)
+        self.dataFrame.pack(side="top",padx=20,pady=10, fill="both", expand=True)
         
 
 
@@ -152,11 +175,13 @@ class App:
         
         self.searchBar = SearchBar(master=self.content_box, text="Persona")
         self.searchBar.configure(height=50, fg_color=blanco)
+        self.searchBar.btnRegister.configure(command=self.register_cliente)
         self.searchBar.pack(side="top",padx=20,pady=10,fill="x")
         
         self.dataFrame = Persona(master=self.content_box)
         self.dataFrame.configure(height=500,width=700, fg_color=blanco)
         self.dataFrame.pack(side="top", padx=20, pady=10, fill="both", expand=True)
+        
         
     def mostrar_empleados(self):
         self.limpiar_contenido()
@@ -165,11 +190,23 @@ class App:
         
         self.searchBar = SearchBar(master=self.content_box, text="Persona")
         self.searchBar.configure(height=50, fg_color=blanco)
+        self.searchBar.btnRegister.configure(command=self.register_empleado)
         self.searchBar.pack(side="top",padx=20,pady=10,fill="x")
         
         self.dataFrame = Persona(master=self.content_box)
         self.dataFrame.configure(height=500,width=700, fg_color=blanco)
         self.dataFrame.pack(side="top", padx=20, pady=10, fill="both", expand=True)
+    
+    
+    def register_empleado(self):
+        self.limpiar_contenido()
+        
+        self.change_title("Registro Empleado")    
+         
+        self.registerPersona = RegisterEmpleado(master=self.content_box, texto="Empleado")
+        self.registerPersona.place(relx=0.5, rely=0.5, anchor="center", relwidth=0.8, relheight=0.8)
+        self.registerPersona.btnAtras.configure(command=self.mostrar_clientes)
+
 
     def mostrar_productos(self):
         
@@ -184,11 +221,22 @@ class App:
         
         self.searchBar = SearchBar(master=self.content_box, text="Persona")
         self.searchBar.configure(height=50, fg_color=blanco)
+        self.searchBar.btnRegister.configure(command=self.register_proveedor)
         self.searchBar.pack(side="top",padx=20,pady=10,fill="x")
         
         self.dataFrame = Persona(master=self.content_box)
         self.dataFrame.configure(height=500,width=700, fg_color=blanco)
         self.dataFrame.pack(side="top", padx=20, pady=10, fill="both", expand=True)
+
+    def register_proveedor(self):
+        self.limpiar_contenido()
+        
+        self.change_title("Registro Empleado")    
+         
+        self.registerPersona = RegisterProveedor(master=self.content_box, texto="Proveedor")
+        self.registerPersona.place(relx=0.5, rely=0.5, anchor="center", relwidth=0.8, relheight=0.8)
+        self.registerPersona.btnAtras.configure(command=self.mostrar_proveedores)
+
 
     def mostrar_facturas(self):
         

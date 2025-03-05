@@ -20,7 +20,6 @@ class DataBase:
                 port=cls.__PORT
             )
             cls.__cursor = cls.__conexion.cursor()
-            print('Conexión abierta...')
             return cls.__conexion
         except con.Error as error:
             if err.errno == error.ER_ACCESS_DENIED_ERROR:

@@ -24,7 +24,7 @@ class Login(ctk.CTk):
     
     def on_close(self):
         # Cancelar la tarea programada antes de cerrar
-        self.root.destroy()
+        self.destroy()
     
     def frameLogo(self):
         #frame de la izquierda, funciona como una caja HTML y abajo su contenido

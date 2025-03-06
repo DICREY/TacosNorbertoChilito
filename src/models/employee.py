@@ -72,8 +72,7 @@ class Employee(People):
     @classmethod
     def buscar_employee_name(cls, name=None):
         conexion = DataBase.conectar()
-        employee = cls.buscar_employee_name(name)
-        if not employee:
+        if conexion:
             try:
                 cursor_employee = conexion.cursor()
                 cursor_employee.callproc('SearchemployeeName', [name])

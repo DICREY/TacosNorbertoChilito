@@ -79,18 +79,27 @@ INSERT INTO ARTICULOS (cod_art, nom_art, cat_art, mat_art, pre_art, des_art) VAL
 ('ART003', 'Sofá', 3, 'Madera, Tela', 2000000.00, 'Sofá de 3 plazas'),
 ('ART004', 'Pelota', 4, 'Caucho', 30000.00, 'Pelota de fútbol'),
 ('ART005', 'Raqueta', 5, 'Grafito', 250000.00, 'Raqueta de tenis profesional');
-INSERT INTO MATERIALES (nom_mat, can_mat, pre_mat) VALUES
-('Plástico', '100 kg', 50000.00),
-('Metal', '50 kg', 100000.00),
-('Algodón', '200 m', 30000.00),
-('Madera', '30 m³', 150000.00),
-('Caucho', '80 kg', 40000.00);
-INSERT INTO COMPRAS (fec_com, id_dis, id_mat) VALUES
-('2023-10-01', 4, 1),
-('2023-10-02', 8, 2),
-('2023-10-03', 9, 3),
-('2023-10-04', 10, 4),
-('2023-10-05', 11, 5);
+INSERT INTO MATERIALES (nom_mat, pre_mat) 
+VALUES 
+('Tornillos', 0.50),
+('Tuercas', 0.30),
+('Arandelas', 0.20),
+('Clavos', 0.10),
+('Pegamento', 5.00);
+INSERT INTO EXISTENCIAS_MATERIALES (id_mat, can_exi_mat) 
+VALUES 
+(1, 1000),  -- 1000 tornillos
+(2, 1500),  -- 1500 tuercas
+(3, 2000),  -- 2000 arandelas
+(4, 5000),  -- 5000 clavos
+(5, 50);    -- 50 unidades de pegamento
+INSERT INTO COMPRAS (fec_com, uni_com, can_com,pre_tot_com, id_dis, id_mat) 
+VALUES 
+('2023-10-25', 'unidades', 500, 2000.99, 4, 1),  -- Compra de 500 tornillos
+('2023-10-26', 'unidades', 300, 2000.99, 8, 2),  -- Compra de 300 tuercas
+('2023-10-27', 'unidades', 200, 2000.99, 9, 3),  -- Compra de 200 arandelas
+('2023-10-28', 'unidades', 1000, 2000.99, 10, 4), -- Compra de 1000 clavos
+('2023-10-29', 'litros', 10,591.99, 11, 5);     -- Compra de 10 litros de pegamento
 INSERT INTO MAQUINARIA (nom_maq, estado) VALUES
 ('Máquina de Corte', 'FUNCIONAL'),
 ('Máquina de Soldar', 'INSERVIBLE'),

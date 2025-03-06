@@ -29,7 +29,7 @@ BEGIN
         p.doc_per LIKE CONCAT("%",p_var_search,"%");
 END //
 
-CREATE PROCEDURE SearchDistributor()
+CREATE PROCEDURE SearchDistributors()
 BEGIN 
     SELECT
         p.nom_per,
@@ -156,3 +156,4 @@ END //
 CALL SearchOneDistributor("123456789");
 CALL DesactiveDistributor("123456789");
 CALL SearchDistributor(); */
+CALL `SearchDistributors`();

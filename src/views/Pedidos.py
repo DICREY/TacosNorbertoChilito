@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from src.views.vars import *
 from src.views.SearchBar import SearchBar
+from src.models.pedidos import order
 
 class Pedidos(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
@@ -26,17 +27,20 @@ class Pedidos(ctk.CTkFrame):
         self.top_frame.grid_rowconfigure(0, weight=1)
 
         # Agregar widgets al frame de arriba
-        self.codigoF = ctk.CTkFrame(self.top_frame,height=50,border_color=btnCafe,corner_radius=0,fg_color=fondAma)
-        self.codigoF.grid(row=0, column=0, sticky="nsew")
-        self.codigoL = ctk.CTkLabel(self.codigoF, text="Codigo", font=letter2,anchor="w", fg_color="transparent", bg_color="transparent")
-        self.codigoL.pack(side="left",pady=5,padx=10)
-
+        self.fechaF = ctk.CTkFrame(self.top_frame,height=50,border_color=btnCafe,corner_radius=0,fg_color=fondAma)
+        self.fechaF.grid(row=0, column=4, sticky="nsew")
+        self.fechaL = ctk.CTkLabel(self.fechaF, text="Fecha", font=letter2,anchor="w", fg_color="transparent", bg_color="transparent")
+        self.fechaL.pack(side="left",pady=5,padx=10)
 
         self.nombreF = ctk.CTkFrame(self.top_frame,height=50,border_color=btnCafe,corner_radius=0,fg_color=fondAma2)
         self.nombreF.grid(row=0, column=1, sticky="nsew")
         self.nombreL = ctk.CTkLabel(self.nombreF, text="Nombre", font=letter2,anchor="w", fg_color="transparent", bg_color="transparent")
         self.nombreL.pack(side="left",pady=5,padx=10)
 
+        self.codigoF = ctk.CTkFrame(self.top_frame,height=50,border_color=btnCafe,corner_radius=0,fg_color=fondAma)
+        self.codigoF.grid(row=0, column=0, sticky="nsew")
+        self.codigoL = ctk.CTkLabel(self.codigoF, text="Codigo", font=letter2,anchor="w", fg_color="transparent", bg_color="transparent")
+        self.codigoL.pack(side="left",pady=5,padx=10)
 
         self.clienteF = ctk.CTkFrame(self.top_frame,height=50,border_color=btnCafe,corner_radius=0,fg_color=fondAma)
         self.clienteF.grid(row=0, column=2, sticky="nsew")
@@ -49,10 +53,6 @@ class Pedidos(ctk.CTkFrame):
         self.estadoL = ctk.CTkLabel(self.estadoF, text="Estado", font=letter2,anchor="w", fg_color="transparent", bg_color="transparent")
         self.estadoL.pack(side="left",pady=5,padx=10)
 
-        self.fechaF = ctk.CTkFrame(self.top_frame,height=50,border_color=btnCafe,corner_radius=0,fg_color=fondAma)
-        self.fechaF.grid(row=0, column=4, sticky="nsew")
-        self.fechaL = ctk.CTkLabel(self.fechaF, text="Fecha", font=letter2,anchor="w", fg_color="transparent", bg_color="transparent")
-        self.fechaL.pack(side="left",pady=5,padx=10)
 
         self.nadaF = ctk.CTkFrame(self.top_frame,height=50,border_color=btnCafe,corner_radius=0,fg_color=fondAma)
         self.nadaF.grid(row=0, column=5, sticky="nsew")
@@ -65,11 +65,11 @@ class Pedidos(ctk.CTkFrame):
         self.bottom_frame.grid_columnconfigure(0, weight=1)
         self.bottom_frame.grid_columnconfigure((1,2,3,4), weight=2)
 
-        # Agregar widgets al frame de abajo (scrollable)
-        for i in range(20):  # Ejemplo: 20 widgets en el frame scrollable
-            label = ctk.CTkLabel(self.bottom_frame, text=f"Elemento {i + 1}", font=letter)
-            label.grid(row=i, column=0, padx=10, pady=5, sticky="w")
-
+        pedido = order.buscar_pedidos_pendientes()
+        if pedido:
+            for i in pedido:
+                self.fec = ctk.CTkLabel(self.bottom_frame, font=letter,text=f"{i}")
+                self.fec.pack(side="left",pady=5,padx=10)
 
 class PedidosSearchBar(SearchBar):
     def __init__(self, master, texto,**kwargs):

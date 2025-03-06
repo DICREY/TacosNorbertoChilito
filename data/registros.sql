@@ -65,11 +65,8 @@ INSERT INTO PEDIDOS (fec_ped, id_cli)
 VALUES ('2023-10-25', 1);
 INSERT INTO DETALLE_PEDIDOS (id_ped, id_pro_ped, cantidad) 
 VALUES 
-(1, 1, 5),  -- 5 unidades del producto con id_pro_ped = 1
-(1, 2, 3),  -- 3 unidades del producto con id_pro_ped = 2
-(1, 3, 2),  -- 2 unidades del producto con id_pro_ped = 3
-(1, 4, 4),  -- 4 unidades del producto con id_pro_ped = 4
-(1, 5, 1);  -- 1 unidad del producto con id_pro_ped = 5
+(1, 1, 5)  -- 5 unidades del producto con id_pro_ped = 1
+
 INSERT INTO CATEGORIAS (nom_cat) VALUES
 ('Electrónica'),
 ('Ropa'),

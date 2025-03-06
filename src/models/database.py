@@ -40,49 +40,13 @@ class DataBase:
             print(f'Error general: {ex}')
 
     @classmethod
-    def ejecutar_query(cls, query, params=None):
-        try:
-            cls.__cursor.execute(query, params)
-            if query.strip().lower().startswith('select'):           
-                resultado = cls.__cursor.fetchall()
-                if resultado:
-                    for fila in resultado:
-                        print(fila)
-                else:
-                    print('No hay resultados...')
-                    return None
-                return resultado
-            else:
-                cls.conexion.commit()
-                print('Query ejecutada con éxito')
-        except con.ProgrammingError as pe:
-            print(f'Error en la query: {pe}')
-        except con.DataError as de:
-            print(f'Error de datos: {de}')
-        except con.IntegrityError as ie:
-            print(f'Error de integridad de datos: {ie}')
-        except con.OperationalError as oe:
-            print(f'Error operacional: {oe}')
-        except con.InternalError as ie:
-            print(f'Error interno del sistema: {ie}')
-        except con.NotSupportedError as nse:
-            print(f'Error de operación no soportada: {nse}')
-        except con.InterfaceError as ie:
-            print(f'Error de interfaz de conexión: {ie}')
-        except Exception as ex:
-            print(f'Error general: {ex}')
-
-    @classmethod
     def desconectar(cls):
         try:
             if cls.__cursor:
                 cls.__cursor.close()
-            if cls.__conexion == None:
-                print('No hay una conexión abierta. Intente de nuevo')
             else:
                 cls.__conexion.close()
-                print('Conexión cerrada...')
         except con.Error as err:
             print(f'Error al cerrar la conexión: {err}')
 
-DataBase.conectar()
+dataBase = DataBase()

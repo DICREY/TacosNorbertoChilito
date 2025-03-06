@@ -1,6 +1,5 @@
 # Imports
-from database import DataBase
-from datetime import date
+from src.models.database import dataBase
 
 # Librarys
 
@@ -28,7 +27,7 @@ class Pedido():
     
     @classmethod
     def registrar_pedido(cls):
-        conexion = DataBase.conectar()
+        conexion = dataBase.conectar()
         pedido = cls.buscar_pedido_name()
         if not pedido:
             try:
@@ -42,13 +41,13 @@ class Pedido():
             finally:
                 if conexion:
                     cursor_pedido.close()
-                    DataBase.desconectar()
+                    dataBase.desconectar()
         else:
             return 'Ya existe'
         
     @classmethod
     def buscar_pedido_fec(cls, name=None):
-        conexion = DataBase.conectar()
+        conexion = dataBase.conectar()
         if conexion:
             try:
                 cursor_pedido = conexion.cursor()
@@ -65,11 +64,11 @@ class Pedido():
             finally:
                 if conexion:
                     cursor_pedido.close()
-                    DataBase.desconectar()
+                    dataBase.desconectar()
 
     @classmethod
     def buscar_pedidos_pendientes(cls):
-        conexion = DataBase.conectar()
+        conexion = dataBase.conectar()
         if conexion:
             try:
                 cursor_pedido = conexion.cursor()
@@ -86,11 +85,11 @@ class Pedido():
             finally:
                 if conexion:
                     cursor_pedido.close()
-                    DataBase.desconectar()
+                    dataBase.desconectar()
 
     @classmethod
     def buscar_pedidos_entregados(cls):
-        conexion = DataBase.conectar()
+        conexion = dataBase.conectar()
         if conexion:
             try:
                 cursor_pedido = conexion.cursor()
@@ -107,11 +106,11 @@ class Pedido():
             finally:
                 if conexion:
                     cursor_pedido.close()
-                    DataBase.desconectar()
+                    dataBase.desconectar()
         
     @classmethod
     def eliminar_pedido(cls, name = None):
-        conexion = DataBase.conectar()
+        conexion = dataBase.conectar()
         pedido = cls.buscar_pedido_fec(name)
         if pedido:
             try:
@@ -123,14 +122,14 @@ class Pedido():
             except Exception as error:
                 return f'Error al eliminar el pedido: {error}. Intente de nuevo'
             finally:
-                DataBase.desconectar()
+                dataBase.desconectar()
 
 
 
-pe = Pedido()
+order = Pedido()
 # delete = pe.eliminar_pedido("2023-10-25")
 # print(delete)
 # allPen = pe.buscar_pedidos_pendientes()
 # print(allPen)
-allDel = pe.buscar_pedidos_entregados()
-print(allDel)
+# allDel = pe.buscar_pedidos_entregados()
+# print(allDel)

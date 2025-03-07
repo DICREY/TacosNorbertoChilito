@@ -32,6 +32,7 @@ BEGIN
         pe.nom_per,
         pe.ape_per,
         pe.cel_per,
+        p.estado,
         pa.nom_pai,
         p.obs_ped
     FROM pedidos p,clientes c,personas pe,paises pa
@@ -40,7 +41,8 @@ BEGIN
         c.id_cli = pe.id_per AND
         pe.pais_per = pa.id_pai AND
         p.estado = "PENDIENTE"
-    LIMIT 50;
+    ORDER BY(p.fec_ped)
+    LIMIT 20;
 END //
 
 CREATE PROCEDURE SearchOrderDelivered()
@@ -51,6 +53,7 @@ BEGIN
         pe.nom_per,
         pe.ape_per,
         pe.cel_per,
+        p.estado,
         pa.nom_pai,
         p.obs_ped
     FROM pedidos p,clientes c,personas pe,paises pa
@@ -59,7 +62,8 @@ BEGIN
         c.id_cli = pe.id_per AND
         pe.pais_per = pa.id_pai AND
         p.estado = "ENTREGADO"
-    LIMIT 50;
+    ORDER BY(p.fec_ped)
+    LIMIT 20;
 END //
 CREATE PROCEDURE SearchOrder(
     IN var_order VARCHAR(100)
@@ -71,6 +75,7 @@ BEGIN
         pe.nom_per,
         pe.ape_per,
         pe.cel_per,
+        p.estado,
         pa.nom_pai,
         p.obs_ped
     FROM pedidos p,clientes c,personas pe,paises pa
@@ -85,5 +90,29 @@ BEGIN
         pe.pais_per = pa.id_pai AND
         p.fec_ped = var_order AND
         p.estado = "ENTREGADO"
-    LIMIT 50;
+    LIMIT 20;
+END //
+CREATE PROCEDURE SearchOrders()
+BEGIN
+    -- Update Pedidos for desactive it
+    SELECT
+        p.fec_ped,
+        pe.nom_per,
+        pe.ape_per,
+        pe.cel_per,
+        p.estado,
+        pa.nom_pai,
+        p.obs_ped
+    FROM pedidos p,clientes c,personas pe,paises pa
+    WHERE
+        c.id_cli = p.id_cli AND
+        c.id_cli = pe.id_per AND
+        pe.pais_per = pa.id_pai AND
+        p.estado = "PENDIENTE" OR
+        c.id_cli = p.id_cli AND
+        c.id_cli = pe.id_per AND
+        pe.pais_per = pa.id_pai AND
+        p.estado = "ENTREGADO"
+    ORDER BY(p.fec_ped)
+    LIMIT 20;
 END //

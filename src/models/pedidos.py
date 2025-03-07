@@ -53,7 +53,7 @@ class Pedido():
                 cursor_pedido = conexion.cursor()
                 cursor_pedido.callproc('SearchpedidoName', [name])
                 for busqueda in cursor_pedido.stored_results():
-                    resultado = busqueda.fetchone()
+                    resultado = busqueda.fetchall()
                     if resultado:
                         cls.__data = resultado
                         return cls.__data
@@ -74,7 +74,28 @@ class Pedido():
                 cursor_pedido = conexion.cursor()
                 cursor_pedido.callproc('SearchOrderPendings')
                 for busqueda in cursor_pedido.stored_results():
-                    resultado = busqueda.fetchone()
+                    resultado = busqueda.fetchall()
+                    if resultado:
+                        cls.__data = resultado
+                        return cls.__data
+                    else:
+                        return 'Pedidos no encontrados'
+            except Exception as e:
+                return e
+            finally:
+                if conexion:
+                    cursor_pedido.close()
+                    dataBase.desconectar()
+
+    @classmethod
+    def buscar_pedidos(cls):
+        conexion = dataBase.conectar()
+        if conexion:
+            try:
+                cursor_pedido = conexion.cursor()
+                cursor_pedido.callproc('SearchOrders')
+                for busqueda in cursor_pedido.stored_results():
+                    resultado = busqueda.fetchall()
                     if resultado:
                         cls.__data = resultado
                         return cls.__data
@@ -95,7 +116,7 @@ class Pedido():
                 cursor_pedido = conexion.cursor()
                 cursor_pedido.callproc('SearchOrderDelivered')
                 for busqueda in cursor_pedido.stored_results():
-                    resultado = busqueda.fetchone()
+                    resultado = busqueda.fetchall()
                     if resultado:
                         cls.__data = resultado
                         return cls.__data
@@ -127,9 +148,3 @@ class Pedido():
 
 
 order = Pedido()
-# delete = pe.eliminar_pedido("2023-10-25")
-# print(delete)
-# allPen = pe.buscar_pedidos_pendientes()
-# print(allPen)
-# allDel = pe.buscar_pedidos_entregados()
-# print(allDel)

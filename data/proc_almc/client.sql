@@ -57,7 +57,8 @@ BEGIN
         p.id_per = c.id_cli AND
         p.ciud_per = ci.id_ciu AND
         p.estado = 1 AND
-        p.pais_per = pa.id_pai;
+        p.pais_per = pa.id_pai
+    LIMIT 20;
 END //
 
 CREATE PROCEDURE RegistClient(

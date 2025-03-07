@@ -50,22 +50,72 @@ INSERT INTO DISTRIBUIDORES (id_dis, emp_per_dis) VALUES
 (9, 'Distribuidora 123'),
 (10, 'Distribuidora 456'),
 (11, 'Distribuidora 789');
-INSERT INTO PRODUCTO_PEDIDOS (
-    parte_pro_ped, refe_pro_ped, incrust_pro_ped, rosca_pro_ped, punt_pro_ped, 
-    lamin_pro_ped, incrust_punt_pro_ped, casq_pro_ped, peso_pro_ped, 
-    proceso_pro_ped, acces_pro_ped, colo_acc_pro_ped, des_pro_ped
-)
-VALUES 
-('Parte A', 'Ref001', 'Incrust1', 'Rosca1', 'Punt1', 'Lamin1', 'IncrustPunt1', 'Casq1', 1.5, 'Proceso1', 'Acces1', 'Rojo', 'Descripción1'),
-('Parte B', 'Ref002', 'Incrust2', 'Rosca2', 'Punt2', 'Lamin2', 'IncrustPunt2', 'Casq2', 2.0, 'Proceso2', 'Acces2', 'Azul', 'Descripción2'),
-('Parte C', 'Ref003', 'Incrust3', 'Rosca3', 'Punt3', 'Lamin3', 'IncrustPunt3', 'Casq3', 1.8, 'Proceso3', 'Acces3', 'Verde', 'Descripción3'),
-('Parte D', 'Ref004', 'Incrust4', 'Rosca4', 'Punt4', 'Lamin4', 'IncrustPunt4', 'Casq4', 2.5, 'Proceso4', 'Acces4', 'Amarillo', 'Descripción4'),
-('Parte E', 'Ref005', 'Incrust5', 'Rosca5', 'Punt5', 'Lamin5', 'IncrustPunt5', 'Casq5', 1.2, 'Proceso5', 'Acces5', 'Negro', 'Descripción5');
-INSERT INTO PEDIDOS (fec_ped, id_cli) 
-VALUES ('2023-10-25', 1);
-INSERT INTO DETALLE_PEDIDOS (id_ped, id_pro_ped, cantidad) 
-VALUES 
-(1, 1, 5)  -- 5 unidades del producto con id_pro_ped = 1
+
+INSERT INTO PEDIDOS (fec_ped, fec_ent_ped, estado, obs_ped, id_cli) VALUES
+('2023-10-01', '2023-10-10', 'PENDIENTE', 'Observación 1', 1),
+('2023-10-02', '2023-10-11', 'ENTREGADO', 'Observación 2', 2),
+('2023-10-03', '2023-10-12', 'ANULADO', 'Observación 3', 2),
+('2023-10-04', '2023-10-13', 'PENDIENTE', 'Observación 4', 7),
+('2023-10-05', '2023-10-14', 'ENTREGADO', 'Observación 5', 5),
+('2023-10-06', '2023-10-15', 'ANULADO', 'Observación 6', 6),
+('2023-10-07', '2023-10-16', 'PENDIENTE', 'Observación 7', 1),
+('2023-10-08', '2023-10-17', 'ENTREGADO', 'Observación 8', 7),
+('2023-10-09', '2023-10-18', 'ANULADO', 'Observación 9', 6),
+('2023-10-10', '2023-10-19', 'PENDIENTE', 'Observación 10', 5),
+('2023-10-11', '2023-10-20', 'ENTREGADO', 'Observación 11', 7),
+('2023-10-12', '2023-10-21', 'ANULADO', 'Observación 12', 6),
+('2023-10-13', '2023-10-22', 'PENDIENTE', 'Observación 13', 5),
+('2023-10-14', '2023-10-23', 'ENTREGADO', 'Observación 14', 6),
+('2023-10-15', '2023-10-24', 'ANULADO', 'Observación 15', 7),
+('2023-10-16', '2023-10-25', 'PENDIENTE', 'Observación 16', 1),
+('2023-10-17', '2023-10-26', 'ENTREGADO', 'Observación 17', 6),
+('2023-10-18', '2023-10-27', 'ANULADO', 'Observación 18', 5),
+('2023-10-19', '2023-10-28', 'PENDIENTE', 'Observación 19', 6),
+('2023-10-20', '2023-10-29', 'ENTREGADO', 'Observación 20', 7);
+
+INSERT INTO PRODUCTO_PEDIDOS (parte_pro_ped, refe_pro_ped, incrust_pro_ped, rosca_pro_ped, punt_pro_ped, lamin_pro_ped, incrust_punt_pro_ped, casq_pro_ped, peso_pro_ped, proceso_pro_ped, acces_pro_ped, colo_acc_pro_ped, des_pro_ped) VALUES
+('Parte1', 'Ref1', 'Incrust1', 'Rosca1', 'Punt1', 'Lamin1', 'IncrustPunt1', 'Casq1', 1.5, 'Proceso1', 'Acces1', 'Color1', 'Desc1'),
+('Parte2', 'Ref2', 'Incrust2', 'Rosca2', 'Punt2', 'Lamin2', 'IncrustPunt2', 'Casq2', 2.0, 'Proceso2', 'Acces2', 'Color2', 'Desc2'),
+('Parte3', 'Ref3', 'Incrust3', 'Rosca3', 'Punt3', 'Lamin3', 'IncrustPunt3', 'Casq3', 2.5, 'Proceso3', 'Acces3', 'Color3', 'Desc3'),
+('Parte4', 'Ref4', 'Incrust4', 'Rosca4', 'Punt4', 'Lamin4', 'IncrustPunt4', 'Casq4', 3.0, 'Proceso4', 'Acces4', 'Color4', 'Desc4'),
+('Parte5', 'Ref5', 'Incrust5', 'Rosca5', 'Punt5', 'Lamin5', 'IncrustPunt5', 'Casq5', 3.5, 'Proceso5', 'Acces5', 'Color5', 'Desc5'),
+('Parte6', 'Ref6', 'Incrust6', 'Rosca6', 'Punt6', 'Lamin6', 'IncrustPunt6', 'Casq6', 4.0, 'Proceso6', 'Acces6', 'Color6', 'Desc6'),
+('Parte7', 'Ref7', 'Incrust7', 'Rosca7', 'Punt7', 'Lamin7', 'IncrustPunt7', 'Casq7', 4.5, 'Proceso7', 'Acces7', 'Color7', 'Desc7'),
+('Parte8', 'Ref8', 'Incrust8', 'Rosca8', 'Punt8', 'Lamin8', 'IncrustPunt8', 'Casq8', 5.0, 'Proceso8', 'Acces8', 'Color8', 'Desc8'),
+('Parte9', 'Ref9', 'Incrust9', 'Rosca9', 'Punt9', 'Lamin9', 'IncrustPunt9', 'Casq9', 5.5, 'Proceso9', 'Acces9', 'Color9', 'Desc9'),
+('Parte10', 'Ref10', 'Incrust10', 'Rosca10', 'Punt10', 'Lamin10', 'IncrustPunt10', 'Casq10', 6.0, 'Proceso10', 'Acces10', 'Color10', 'Desc10'),
+('Parte11', 'Ref11', 'Incrust11', 'Rosca11', 'Punt11', 'Lamin11', 'IncrustPunt11', 'Casq11', 6.5, 'Proceso11', 'Acces11', 'Color11', 'Desc11'),
+('Parte12', 'Ref12', 'Incrust12', 'Rosca12', 'Punt12', 'Lamin12', 'IncrustPunt12', 'Casq12', 7.0, 'Proceso12', 'Acces12', 'Color12', 'Desc12'),
+('Parte13', 'Ref13', 'Incrust13', 'Rosca13', 'Punt13', 'Lamin13', 'IncrustPunt13', 'Casq13', 7.5, 'Proceso13', 'Acces13', 'Color13', 'Desc13'),
+('Parte14', 'Ref14', 'Incrust14', 'Rosca14', 'Punt14', 'Lamin14', 'IncrustPunt14', 'Casq14', 8.0, 'Proceso14', 'Acces14', 'Color14', 'Desc14'),
+('Parte15', 'Ref15', 'Incrust15', 'Rosca15', 'Punt15', 'Lamin15', 'IncrustPunt15', 'Casq15', 8.5, 'Proceso15', 'Acces15', 'Color15', 'Desc15'),
+('Parte16', 'Ref16', 'Incrust16', 'Rosca16', 'Punt16', 'Lamin16', 'IncrustPunt16', 'Casq16', 9.0, 'Proceso16', 'Acces16', 'Color16', 'Desc16'),
+('Parte17', 'Ref17', 'Incrust17', 'Rosca17', 'Punt17', 'Lamin17', 'IncrustPunt17', 'Casq17', 9.5, 'Proceso17', 'Acces17', 'Color17', 'Desc17'),
+('Parte18', 'Ref18', 'Incrust18', 'Rosca18', 'Punt18', 'Lamin18', 'IncrustPunt18', 'Casq18', 10.0, 'Proceso18', 'Acces18', 'Color18', 'Desc18'),
+('Parte19', 'Ref19', 'Incrust19', 'Rosca19', 'Punt19', 'Lamin19', 'IncrustPunt19', 'Casq19', 10.5, 'Proceso19', 'Acces19', 'Color19', 'Desc19'),
+('Parte20', 'Ref20', 'Incrust20', 'Rosca20', 'Punt20', 'Lamin20', 'IncrustPunt20', 'Casq20', 11.0, 'Proceso20', 'Acces20', 'Color20', 'Desc20');
+
+INSERT INTO DETALLE_PEDIDOS (id_ped, id_pro_ped, cantidad) VALUES
+(1, 1, 5),
+(2, 2, 10),
+(3, 3, 15),
+(4, 4, 20),
+(5, 5, 25),
+(6, 6, 30),
+(7, 7, 35),
+(8, 8, 40),
+(9, 9, 45),
+(10, 10, 50),
+(11, 11, 55),
+(12, 12, 60),
+(13, 13, 65),
+(14, 14, 70),
+(15, 15, 75),
+(16, 16, 80),
+(17, 17, 85),
+(18, 18, 90),
+(19, 19, 95),
+(20, 20, 100);
 
 INSERT INTO CATEGORIAS (nom_cat) VALUES
 ('Electrónica'),

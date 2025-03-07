@@ -72,8 +72,7 @@ class Client(People):
     @classmethod
     def buscar_client_name(cls, name=None):
         conexion = DataBase.conectar()
-        cliente = cls.buscar_client_name(name)
-        if not cliente:
+        if conexion:
             try:
                 cursor_client = conexion.cursor()
                 cursor_client.callproc('SearchClientName', [name])

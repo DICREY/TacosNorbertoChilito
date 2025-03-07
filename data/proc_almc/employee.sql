@@ -74,7 +74,7 @@ BEGIN
     SET p.estado = 0
     WHERE
         p.id_per = e.id_emp AND
-        p.ema_per LIKE p_var_search OR 
+        p.ema_per LIKE p_var_search OR
         p.id_per = e.id_emp AND
         p.doc_per LIKE p_var_search;
 

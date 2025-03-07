@@ -50,24 +50,23 @@ INSERT INTO DISTRIBUIDORES (id_dis, emp_per_dis) VALUES
 (9, 'Distribuidora 123'),
 (10, 'Distribuidora 456'),
 (11, 'Distribuidora 789');
-INSERT INTO PRODUCTO_PEDIDOS (parte_pro_ped, refe_pro_ped, incrust_pro_ped, rosca_pro_ped, punt_pro_ped, lamin_pro_ped, incrust_punt_pro_ped, casq_pro_ped, peso_pro_ped, proceso_pro_ped, acces_pro_ped, colo_acc_pro_ped, des_pro_ped) VALUES
-('Parte A', 'REF001', 'Incrustación 1', 'Rosca 1', 'Punta 1', 'Laminado 1', 'Incrustación Punta 1', 'Casco 1', 1.5, 'Proceso 1', 'Accesorio 1', 'Color 1', 'Descripción 1'),
-('Parte B', 'REF002', 'Incrustación 2', 'Rosca 2', 'Punta 2', 'Laminado 2', 'Incrustación Punta 2', 'Casco 2', 2.0, 'Proceso 2', 'Accesorio 2', 'Color 2', 'Descripción 2'),
-('Parte C', 'REF003', 'Incrustación 3', 'Rosca 3', 'Punta 3', 'Laminado 3', 'Incrustación Punta 3', 'Casco 3', 2.5, 'Proceso 3', 'Accesorio 3', 'Color 3', 'Descripción 3'),
-('Parte D', 'REF004', 'Incrustación 4', 'Rosca 4', 'Punta 4', 'Laminado 4', 'Incrustación Punta 4', 'Casco 4', 3.0, 'Proceso 4', 'Accesorio 4', 'Color 4', 'Descripción 4'),
-('Parte E', 'REF005', 'Incrustación 5', 'Rosca 5', 'Punta 5', 'Laminado 5', 'Incrustación Punta 5', 'Casco 5', 3.5, 'Proceso 5', 'Accesorio 5', 'Color 5', 'Descripción 5');
-INSERT INTO PEDIDOS (fec_ped, estado, obs_ped, id_cli) VALUES
-('2023-10-01', 'PENDIENTE', 'Pedido urgente', 1),
-('2023-10-02', 'ENTREGADO', 'Pedido estándar', 2),
-('2023-10-03', 'ANULADO', 'Pedido cancelado', 5),
-('2023-10-04', 'PENDIENTE', 'Pedido prioritario', 6),
-('2023-10-05', 'ENTREGADO', 'Pedido normal', 7);
-INSERT INTO DETALLE_PEDIDOS (id_ped, id_pro_ped, cantidad) VALUES
-(1, 1, 10),
-(2, 2, 5),
-(3, 3, 8),
-(4, 4, 12),
-(5, 5, 15);
+INSERT INTO PRODUCTO_PEDIDOS (
+    parte_pro_ped, refe_pro_ped, incrust_pro_ped, rosca_pro_ped, punt_pro_ped, 
+    lamin_pro_ped, incrust_punt_pro_ped, casq_pro_ped, peso_pro_ped, 
+    proceso_pro_ped, acces_pro_ped, colo_acc_pro_ped, des_pro_ped
+)
+VALUES 
+('Parte A', 'Ref001', 'Incrust1', 'Rosca1', 'Punt1', 'Lamin1', 'IncrustPunt1', 'Casq1', 1.5, 'Proceso1', 'Acces1', 'Rojo', 'Descripción1'),
+('Parte B', 'Ref002', 'Incrust2', 'Rosca2', 'Punt2', 'Lamin2', 'IncrustPunt2', 'Casq2', 2.0, 'Proceso2', 'Acces2', 'Azul', 'Descripción2'),
+('Parte C', 'Ref003', 'Incrust3', 'Rosca3', 'Punt3', 'Lamin3', 'IncrustPunt3', 'Casq3', 1.8, 'Proceso3', 'Acces3', 'Verde', 'Descripción3'),
+('Parte D', 'Ref004', 'Incrust4', 'Rosca4', 'Punt4', 'Lamin4', 'IncrustPunt4', 'Casq4', 2.5, 'Proceso4', 'Acces4', 'Amarillo', 'Descripción4'),
+('Parte E', 'Ref005', 'Incrust5', 'Rosca5', 'Punt5', 'Lamin5', 'IncrustPunt5', 'Casq5', 1.2, 'Proceso5', 'Acces5', 'Negro', 'Descripción5');
+INSERT INTO PEDIDOS (fec_ped, id_cli) 
+VALUES ('2023-10-25', 1);
+INSERT INTO DETALLE_PEDIDOS (id_ped, id_pro_ped, cantidad) 
+VALUES 
+(1, 1, 5)  -- 5 unidades del producto con id_pro_ped = 1
+
 INSERT INTO CATEGORIAS (nom_cat) VALUES
 ('Electrónica'),
 ('Ropa'),
@@ -80,18 +79,27 @@ INSERT INTO ARTICULOS (cod_art, nom_art, cat_art, mat_art, pre_art, des_art) VAL
 ('ART003', 'Sofá', 3, 'Madera, Tela', 2000000.00, 'Sofá de 3 plazas'),
 ('ART004', 'Pelota', 4, 'Caucho', 30000.00, 'Pelota de fútbol'),
 ('ART005', 'Raqueta', 5, 'Grafito', 250000.00, 'Raqueta de tenis profesional');
-INSERT INTO MATERIALES (nom_mat, can_mat, pre_mat) VALUES
-('Plástico', '100 kg', 50000.00),
-('Metal', '50 kg', 100000.00),
-('Algodón', '200 m', 30000.00),
-('Madera', '30 m³', 150000.00),
-('Caucho', '80 kg', 40000.00);
-INSERT INTO COMPRAS (fec_com, id_dis, id_mat) VALUES
-('2023-10-01', 4, 1),
-('2023-10-02', 8, 2),
-('2023-10-03', 9, 3),
-('2023-10-04', 10, 4),
-('2023-10-05', 11, 5);
+INSERT INTO MATERIALES (nom_mat, pre_mat) 
+VALUES 
+('Tornillos', 0.50),
+('Tuercas', 0.30),
+('Arandelas', 0.20),
+('Clavos', 0.10),
+('Pegamento', 5.00);
+INSERT INTO EXISTENCIAS_MATERIALES (id_mat, can_exi_mat) 
+VALUES 
+(1, 1000),  -- 1000 tornillos
+(2, 1500),  -- 1500 tuercas
+(3, 2000),  -- 2000 arandelas
+(4, 5000),  -- 5000 clavos
+(5, 50);    -- 50 unidades de pegamento
+INSERT INTO COMPRAS (fec_com, uni_com, can_com,pre_tot_com, id_dis, id_mat) 
+VALUES 
+('2023-10-25', 'unidades', 500, 2000.99, 4, 1),  -- Compra de 500 tornillos
+('2023-10-26', 'unidades', 300, 2000.99, 8, 2),  -- Compra de 300 tuercas
+('2023-10-27', 'unidades', 200, 2000.99, 9, 3),  -- Compra de 200 arandelas
+('2023-10-28', 'unidades', 1000, 2000.99, 10, 4), -- Compra de 1000 clavos
+('2023-10-29', 'litros', 10,591.99, 11, 5);     -- Compra de 10 litros de pegamento
 INSERT INTO MAQUINARIA (nom_maq, estado) VALUES
 ('Máquina de Corte', 'FUNCIONAL'),
 ('Máquina de Soldar', 'INSERVIBLE'),
@@ -99,11 +107,7 @@ INSERT INTO MAQUINARIA (nom_maq, estado) VALUES
 ('Máquina de Impresión', 'FUNCIONAL'),
 ('Máquina de Ensamblaje', 'INSERVIBLE');
 INSERT INTO REMISIONES (tal_rem, not_rem, feca_rem, fece_rem, cliente, pedidos, tipag_rem, iva_rem, subt_rem, des_rem, dat_rem, tot_rem) VALUES
-('TAL001', 'NOT001', '2023-10-01', '2023-10-05', 1, 1, 'EF', 19, 1500000.00, 0.00, 0, 1785000.00),
-('TAL002', 'NOT002', '2023-10-02', '2023-10-06', 2, 2, 'TC', 19, 50000.00, 5000.00, 0, 53500.00),
-('TAL003', 'NOT003', '2023-10-03', '2023-10-07', 5, 3, 'EF', 19, 2000000.00, 100000.00, 0, 2261000.00),
-('TAL004', 'NOT004', '2023-10-04', '2023-10-08', 6, 4, 'TC', 19, 30000.00, 0.00, 0, 35700.00),
-('TAL005', 'NOT005', '2023-10-05', '2023-10-09', 7, 5, 'EF', 19, 250000.00, 25000.00, 0, 267750.00);
+('TAL001', 'NOT001', '2023-10-01', '2023-10-05', 1, 1, 'EF', 19, 1500000.00, 0.00, 0, 1785000.00);
 INSERT INTO ASISTENCIA_EMPLEADOS (id_emp, fec_ase, fes_ase, ent_ase, onc_ini_ase, onc_fin_ase, alm_ini_ase, alm_fin_ase, sal_ase, per_ini_ase, per_fin_ase) VALUES
 (3, '2023-10-01', 'DES', '08:00:00', '10:00:00', '10:15:00', '12:00:00', '13:00:00', '17:00:00', NULL, NULL),
 (14, '2023-10-02', 'FES', '09:00:00', '11:00:00', '11:15:00', '13:00:00', '14:00:00', '18:00:00', NULL, NULL),

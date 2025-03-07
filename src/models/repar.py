@@ -22,9 +22,6 @@ class Distributor(People):
     def get__data(cls):
         return cls.__data
     
-    # def catch_data(cls):
-        # cls.__name = ;
-    
     @classmethod
     def registrar_distributor(cls):
         conexion = DataBase.conectar()
@@ -55,7 +52,6 @@ class Distributor(People):
     @classmethod
     def buscar_distributor_name(cls, name=None):
         conexion = DataBase.conectar()
-        # distributor = cls.buscar_distributor_name(name)
         if conexion:
             try:
                 cursor_distributor = conexion.cursor()

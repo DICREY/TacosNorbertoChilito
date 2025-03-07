@@ -3,7 +3,6 @@ from src.views.vars import *
 from PIL import Image
 from src.views.Home import App
 from src.views.func.util import *
-import os
 
 class Login(ctk.CTk):
     
@@ -121,4 +120,3 @@ class Login(ctk.CTk):
 
 
 login = Login()
-login.mainloop()

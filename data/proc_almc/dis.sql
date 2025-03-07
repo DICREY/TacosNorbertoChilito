@@ -47,7 +47,9 @@ BEGIN
         p.id_per = d.id_dis AND
         p.ciud_per = c.id_ciu AND
         p.estado = 1 AND
-        p.pais_per = pa.id_pai;
+        p.pais_per = pa.id_pai
+    ORDER BY(p.nom_per)
+    LIMIT 50;
 END //
 CREATE PROCEDURE DesactiveDistributor(
     -- Procedure Vars
@@ -141,19 +143,3 @@ BEGIN
 
     SET autocommit = 1;
 END //
-
-/* CALL RegistDistributor(
-    'CRISTIAN',
-    'Pérez',
-    '3001234567',
-    '123456789',
-    'cristian@example.com',
-    'Calle 123',
-    'Colombia',
-    'Bogotá',
-    'C.A. S.A.S'
-);
-CALL SearchOneDistributor("123456789");
-CALL DesactiveDistributor("123456789");
-CALL SearchDistributor(); */
-CALL `SearchDistributors`();

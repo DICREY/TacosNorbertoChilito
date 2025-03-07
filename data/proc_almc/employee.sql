@@ -51,7 +51,9 @@ BEGIN
         p.id_per = e.id_emp AND
         p.ciud_per = c.id_ciu AND
         p.estado = 1 AND
-        p.pais_per = pa.id_pai;
+        p.pais_per = pa.id_pai
+    ORDER BY(p.nom_per)
+    LIMIT 40;
 END //
 CREATE PROCEDURE DesactiveEmployee(
     -- Procedure Vars
@@ -147,22 +149,3 @@ BEGIN
 
     SET autocommit = 1;
 END //
-
-CALL SearchOneEmployee("456789123");
-CALL RegistEmployee(
-    'CRISTIAN',
-    'Pérez',
-    '3001234567',
-    '123456789',
-    'cristian@example.com',
-    'Calle 123',
-    'Colombia',
-    'Bogotá',
-    'Compensar',
-    20000.00,
-    5000000.00
-);
-
-CALL SearchEmployees();
-
-CALL DesactiveEmployee("777777777");

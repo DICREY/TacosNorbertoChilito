@@ -58,7 +58,8 @@ BEGIN
         p.ciud_per = ci.id_ciu AND
         p.estado = 1 AND
         p.pais_per = pa.id_pai
-    LIMIT 20;
+    ORDER BY(p.nom_per)
+    LIMIT 40;
 END //
 
 CREATE PROCEDURE RegistClient(

@@ -58,7 +58,6 @@ class Client(People):
                     cls.get__city,
                     cls.get__anotaciones,
                     cls.get__departamento
-
                 ])
             except Exception as e:
                 return f'Error al buscar client: {e}'
@@ -148,5 +147,5 @@ cl = Client()
 #     'C.A. S.A.S'
 # )
 # print(regis)
-all = cl.buscar_clientes()
-print(all)
+# all = cl.buscar_clientes()
+# print(all)

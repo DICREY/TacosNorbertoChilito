@@ -42,7 +42,7 @@ BEGIN
         pe.pais_per = pa.id_pai AND
         p.estado = "PENDIENTE"
     ORDER BY(p.fec_ped)
-    LIMIT 20;
+    LIMIT 40;
 END //
 
 CREATE PROCEDURE SearchOrderDelivered()
@@ -63,7 +63,7 @@ BEGIN
         pe.pais_per = pa.id_pai AND
         p.estado = "ENTREGADO"
     ORDER BY(p.fec_ped)
-    LIMIT 20;
+    LIMIT 40;
 END //
 CREATE PROCEDURE SearchOrder(
     IN var_order VARCHAR(100)
@@ -90,7 +90,8 @@ BEGIN
         pe.pais_per = pa.id_pai AND
         p.fec_ped = var_order AND
         p.estado = "ENTREGADO"
-    LIMIT 20;
+    ORDER BY(p.fec_ped)
+    LIMIT 40;
 END //
 CREATE PROCEDURE SearchOrders()
 BEGIN
@@ -114,5 +115,5 @@ BEGIN
         pe.pais_per = pa.id_pai AND
         p.estado = "ENTREGADO"
     ORDER BY(p.fec_ped)
-    LIMIT 20;
+    LIMIT 40;
 END //

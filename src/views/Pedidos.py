@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from src.views.vars import *
 from src.views.SearchBar import SearchBar
-from src.models.pedidos import order
+from src.models.pedidos import Pedido
 
 class Pedidos(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
@@ -68,6 +68,7 @@ class Pedidos(ctk.CTkFrame):
         self.bottom_frame.grid_columnconfigure(5, weight=1)
 
         # Agregar widgets al frame de abajo (scrollable)
+        order = Pedido()
         pedido = order.buscar_pedidos_pendientes()
         if pedido:
             row = 0

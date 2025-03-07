@@ -10,8 +10,8 @@ BEGIN
     WHERE 
         M.id_mat = E.id_mat AND
         M.id_mat = C.id_mat
-    GROUP BY 
-        M.id_mat;
+    GROUP BY (M.id_mat)
+    LIMIT 40;
 END //
 CREATE PROCEDURE inventoryMachinery()
 BEGIN
@@ -19,8 +19,7 @@ BEGIN
         nom_maq,
         can_exi_maq
     FROM maquinaria 
-    WHERE
-        estado = "FUNCIONAL"
-    GROUP BY 
-        id_maq;
+    WHERE estado = "FUNCIONAL"
+    GROUP BY(id_maq)
+    LIMIT 40;
 END //

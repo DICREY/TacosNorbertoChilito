@@ -5,6 +5,7 @@ from src.views.Persona import Persona
 from src.views.SearchBar import SearchBar
 from src.views.RegisterPersona import *
 from src.views.Pedidos import *
+from src.views.RegisterPedidos import *
 from PIL import Image
 
 
@@ -120,9 +121,7 @@ class App:
         self.dataFrame = Persona(master=self.content_box)
         self.dataFrame.configure(fg_color=blanco)
         self.dataFrame.pack(side="top", padx=20, pady=10, fill="both", expand=True)
-        for i in range (1,12):
-            self.frameN = ctk.CTkFrame(self.dataFrame.datosFrame,height=30,fg_color=fondAma)
-            self.frameN.pack(side="top", fill="x", pady=10)
+
         
         
     def register_persona(self):
@@ -154,10 +153,22 @@ class App:
         
         self.searchBar = PedidosSearchBar(master=self.content_box,texto="Pedidos")
         self.searchBar.configure(height=50, fg_color=blanco)
+        self.searchBar.btnRegister.configure(command=self.register_pedidos)
         self.searchBar.pack(side="top",padx=20,pady=5, fill="x")
         
         self.dataFrame = Pedidos(master=self.content_box)
         self.dataFrame.pack(side="top",padx=20,pady=10, fill="both", expand=True)
+        
+
+    def register_pedidos(self):
+        
+        self.limpiar_contenido()
+        
+        self.change_title("Registro Pedido")
+        
+        self.registerPedido= RegisterPedido(master=self.content_box, texto="Pedido")
+        self.registerPedido.place(relx=0.5, rely=0.5, anchor="center", relwidth=0.95, relheight=0.93)
+        self.registerPedido.btnAtras.configure(command=self.mostrar_pedidos)
         
 
 

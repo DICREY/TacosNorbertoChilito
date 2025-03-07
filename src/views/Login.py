@@ -77,7 +77,9 @@ class Login(ctk.CTk):
         titlePsw.place(relx=0.28,rely=0.49,anchor="w")  
 
         self.userInput = ctk.CTkEntry(self.frame2,
-                                placeholder_text="Usuario",
+                                placeholder_text="User123",
+                                placeholder_text_color=gris,
+                                text_color="black",
                                 border_width=0,
                                 height=40,
                                 font=letter,
@@ -85,8 +87,9 @@ class Login(ctk.CTk):
         self.userInput.place(relx=0.5,rely=0.42, anchor="center", relwidth=0.45)
 
         self.pswInput = ctk.CTkEntry(self.frame2,
-                                placeholder_text="Contraseña",
+                                placeholder_text="123",
                                 placeholder_text_color=gris,
+                                text_color="black",
                                 font=letter,
                                 border_width=0,
                                 height=40,

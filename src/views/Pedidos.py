@@ -66,11 +66,26 @@ class Pedidos(ctk.CTkFrame):
         self.bottom_frame.grid_columnconfigure((1,2,3,4), weight=2)
         self.bottom_frame.grid_columnconfigure(5, weight=1)
 
-        pedido = order.buscar_pedidos_pendientes()
-        if pedido:
-            for i in pedido:
-                self.fec = ctk.CTkLabel(self.bottom_frame, font=letter,text=f"{i}")
-                self.fec.pack(side="left",pady=5,padx=10)
+        # pedido = order.buscar_pedidos_pendientes()
+        # if pedido:
+        #     for i in pedido:
+        #         self.fec = ctk.CTkLabel(self.bottom_frame, font=letter,text=f"{i}")
+        #         self.fec.pack(side="left",pady=5,padx=10)
+                
+        # Agregar widgets al frame de abajo (scrollable)
+        for i in range(20):  # Ejemplo: 20 widgets en el frame scrollable
+            label = ctk.CTkLabel(self.bottom_frame, text=f"Elemento {i + 1}", font=letter,fg_color="red")
+            label.grid(row=i, column=0, padx=10, pady=5, sticky="w")
+            label = ctk.CTkLabel(self.bottom_frame, text=f"Elemento {i + 1}", font=letter)
+            label.grid(row=i, column=1, padx=10, pady=5, sticky="w")
+            label = ctk.CTkLabel(self.bottom_frame, text=f"Elemento {i + 1}", font=letter)
+            label.grid(row=i, column=2, padx=10, pady=5, sticky="w")
+            label = ctk.CTkLabel(self.bottom_frame, text=f"Elemento {i + 1}", font=letter)
+            label.grid(row=i, column=3, padx=10, pady=5, sticky="w")
+            label = ctk.CTkLabel(self.bottom_frame, text=f"Elemento {i + 1}", font=letter)
+            label.grid(row=i, column=4, padx=10, pady=5, sticky="w")
+            button = ctk.CTkButton(self.bottom_frame, text=f"Elemento {i+1} Detalles")
+            button.grid(row=i, column=5, padx=10,pady=5, sticky="w")
 
 class PedidosSearchBar(SearchBar):
     def __init__(self, master, texto,**kwargs):

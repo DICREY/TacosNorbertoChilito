@@ -1,6 +1,7 @@
 # Imports
 from database import DataBase
 from people import People
+import re
 
 # Librarys
 
@@ -9,22 +10,16 @@ class Client(People):
     @classmethod
     def __init__(
         cls,
-        id_cliente: int = None,
-        anotaciones: str = None,
-        departamento: str = None,
+        anotaciones = "vacio",
+        departamento: str = "vacio",
         data = None
         ):
 
-        cls.__id_cliente = id_cliente
         cls.__anotaciones = anotaciones
         cls.__departamento = departamento
         cls.__data = data
 
     # Methods GET of each attribute
-    @classmethod
-    def get__id_cliente(cls):
-        return cls.__id_cliente
-    
     @classmethod
     def get__anotaciones(cls):
         return cls.__anotaciones
@@ -37,8 +32,30 @@ class Client(People):
     def get__data(cls):
         return cls.__data
     
-    # def catch_data(cls):
-        # cls.__name = ;
+    # Methods SET of each attribute
+    @classmethod
+    def set_departamento(cls,dep):
+        if re.match(r'^[A-Za-z\s]{3,100}$', dep):
+            cls.__departamento = dep
+            return True
+        else:
+            return "Departamento o Estado invalido"
+        
+    @classmethod
+    def validar_datos(cls,name,lastname,cel,doc,email,country,city,dep):
+        try:
+            if (cls.set_name(name) and
+            cls.set_lastname(lastname) and
+            cls.set_cel(cel) and
+            cls.set_doc(doc) and
+            cls.set_email(email) and
+            cls.set_country(country) and
+            cls.set_city(city) and 
+            cls.set_departamento(dep)):
+                return True
+        except Exception as e:
+            return e
+
     
     @classmethod
     def registrar_client(cls):
@@ -130,22 +147,13 @@ class Client(People):
                     DataBase.desconectar()
 
 
-cl = Client()
-# search = cl.buscar_client_name("cristi")
-# print(search)
-# delete = cl.eliminar_client("123456789")
-# print(delete)
-# regis = cl.registrar_client(
-#     'CRISTIAN',
-#     'Pérez',
+# cl = Client()
+# val = cl.validar_datos('s',
+#     'P',
 #     '3001234567',
 #     '123456789',
 #     'cristian@example.com',
-#     'Calle 123',
 #     'Colombia',
 #     'Bogotá',
-#     'C.A. S.A.S'
-# )
-# print(regis)
-# all = cl.buscar_clientes()
-# print(all)
+#     'C.A. S.A.S')
+# print(val)

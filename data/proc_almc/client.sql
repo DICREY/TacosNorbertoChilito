@@ -24,7 +24,7 @@ BEGIN
         p.ciud_per = ci.id_ciu AND
         p.id_per = c.id_cli AND
         p.estado = 1 AND
-        p.nom_per LIKE CONCAT("%",p_name,"%") OR
+        p.nom_per LIKE p_name OR
         p.pais_per = pa.id_pai AND
         p.ciud_per = ci.id_ciu AND
         p.id_per = c.id_cli AND
@@ -160,3 +160,5 @@ BEGIN
 
     SET autocommit = 1;
 END //
+
+CALL `SearchClients`();

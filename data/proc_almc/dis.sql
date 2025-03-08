@@ -21,12 +21,12 @@ BEGIN
         p.ciud_per = c.id_ciu AND 
         p.pais_per = pa.id_pai AND 
         p.estado = 1 AND
-        p.nom_per LIKE CONCAT("%",p_var_search,"%") OR
+        p.nom_per LIKE p_var_search OR
         p.id_per = d.id_dis AND 
         p.ciud_per = c.id_ciu AND 
         p.pais_per = pa.id_pai AND 
         p.estado = 1 AND
-        p.doc_per LIKE CONCAT("%",p_var_search,"%");
+        p.doc_per = p_var_search;
 END //
 
 CREATE PROCEDURE SearchDistributors()

@@ -23,12 +23,12 @@ BEGIN
         p.ciud_per = c.id_ciu AND 
         p.pais_per = pa.id_pai AND 
         p.estado = 1 AND
-        p.nom_per LIKE CONCAT("%",p_var_search,"%") OR
+        p.nom_per LIKE p_var_search OR
         p.id_per = e.id_emp AND 
         p.ciud_per = c.id_ciu AND 
         p.pais_per = pa.id_pai AND 
         p.estado = 1 AND
-        p.doc_per LIKE CONCAT("%",p_var_search,"%");
+        p.doc_per = p_var_search;
 END //
 
 CREATE PROCEDURE SearchEmployees()
@@ -95,8 +95,8 @@ CREATE PROCEDURE RegistEmployee(
     IN address VARCHAR(100),
     IN country VARCHAR(100),
     IN city VARCHAR(100),
-    IN sal VARCHAR(100),
-    IN arl VARCHAR(100),
+    IN sal DECIMAL(10,2),
+    IN arl DECIMAL(10,2),
     IN eps VARCHAR(100)
 )
 BEGIN

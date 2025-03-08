@@ -60,55 +60,48 @@ class People:
     @classmethod
     def set_name(cls,name):
         if re.match(r'^[A-Za-z\s]{3,50}$', name):
-            cls.__name = name
             return True
         else:
-            return "Nombre invalido"
+            raise ValueError("Nombre invalido")
     
     @classmethod
     def set_lastname(cls,lastname):
         if re.match(r'^[A-Za-z\s]{3,50}$', lastname):
-            cls.__lastname = lastname
             return True
         else:
-            return "Apellido invalido"
+            raise ValueError("Apellido invalido")
 
     @classmethod
     def set_cel(cls,cel):
         if 12 > len(cel) > 6:
-            cls.__cel = cel
             return True
         else:
-            return "Celular Invalido"
+            raise ValueError("Celular Invalido")
 
     @classmethod
     def set_doc(cls,doc):
         if 12 > len(doc) > 6:
-            cls.__doc = doc
             return True
         else:
-            return "Documento Invalido"
+            raise ValueError("Documento Invalido")
 
     @classmethod
     def set_email(cls,email):
         if "@" in email and 10 < len(email):
-            cls.__email = email
             return True
         else:
-            return "Email invalido"
+            raise ValueError("Email invalido")
 
     @classmethod
     def set_country(cls,country):
         if re.match(r'^[A-Za-z\s]{3,100}$', country):
-            cls.__country = country
             return True
         else:
-            return "Pais invalido"
+            raise ValueError("Pais invalido")
         
     @classmethod
     def set_city(cls,city):
         if re.match(r'^[A-Za-z\s]{3,100}$', city):
-            cls.__city = city
             return True
         else:
-            return "Ciudad invalida"
+            raise ValueError("Ciudad invalida")
